@@ -1,0 +1,11 @@
+<div class="main_component">
+    <h1>Welcome to my homepage!</h1>
+    <div>
+        <label for="email">Email: </label><input type="text" [formControl]="email" /></div>
+    <div>
+        <label for="password">Password: </label><input type="password" [formControl]="password" /></div>
+    <div>
+        <button (click)="login()">Login</button>
+        <button [routerLink]="'/signup'">Sign Up</button>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="main_component">
+    <div class="div_signup">
+            <h1>Csatlakozz hozzánk</h1>
+        <form [formGroup]="SignUpForm" (ngSubmit)="onSubmit()">
+            
+            <div>
+                <label for="email">Email: </label>
+                <input type="text" formControlName="email" />
+            </div>
+
+            <div>
+                <label for="password">Password: </label>
+                <input type="password" formControlName="password" />
+            </div>
+
+            <div>
+                <label for="repassword">Confirm password: </label>
+                <input type="password" formControlName="repassword" />
+            </div >
+
+                <div formGroupName="name">
+                    <div>
+                        <label for="firstname">Fist Name: </label>
+                        <input type="text" formControlName="firstname" />
+                    </div>
+                    <div>
+                        <label for="lastname">Last Name: </label>
+                        <input type="text" formControlName="lastname" />
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button type="submit">Register</button>
+                    <button (click)="goBack()">Back</button>
+                </div>
+            </form>
+        </div>
+    <div class="pic_signup">
+        <p>Kép helye valahol</p>
+    </div>
+</div>
