@@ -1,4 +1,4 @@
-.div-flex {
+div {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,8 +8,13 @@
 
 .main_component {
     height: 100vh;
+    align-items: center;
 }
 
-form div {
+span {
     padding: 5px 5px 5px 5px;
+}
+
+mat-form-field {
+    width: 50%;
 }

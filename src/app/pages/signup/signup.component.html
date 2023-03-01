@@ -3,34 +3,38 @@
             <h1>Csatlakozz hozzánk</h1>
         <form [formGroup]="SignUpForm" (ngSubmit)="onSubmit()">
             
-            <div>
-                <label for="email">Email: </label>
-                <input type="text" formControlName="email" />
-            </div>
+            <mat-form-field>
+                <mat-label for="email">Email: </mat-label>
+                <input matInput matinput matInput type="text" formControlName="email" />
+            </mat-form-field>
 
-            <div>
-                <label for="password">Password: </label>
-                <input type="password" formControlName="password" />
-            </div>
+            <mat-form-field>
+                <mat-label for="password">Password: </mat-label>
+                <input matInput type="password" formControlName="password" />
+            </mat-form-field>
 
-            <div>
-                <label for="repassword">Confirm password: </label>
-                <input type="password" formControlName="repassword" />
-            </div >
+            <mat-form-field>
+                <mat-label for="repassword">Confirm password: </mat-label>
+                <input matInput type="password" formControlName="repassword" />
+            </mat-form-field>
 
-                <div formGroupName="name">
-                    <div>
-                        <label for="firstname">Fist Name: </label>
-                        <input type="text" formControlName="firstname" />
-                    </div>
-                    <div>
-                        <label for="lastname">Last Name: </label>
-                        <input type="text" formControlName="lastname" />
-                    </div>
+                <div formGroupName="name" class="subForm">
+                    <mat-form-field>
+                        <mat-label for="firstname">Fist Name: </mat-label>
+                        <input matInput type="text" formControlName="firstname" />
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label for="lastname">Last Name: </mat-label>
+                        <input matInput type="text" formControlName="lastname" />
+                    </mat-form-field>
                 </div>
                 <div class="buttons">
-                    <button type="submit">Register</button>
-                    <button (click)="goBack()">Back</button>
+                    <span>
+                        <button mat-raised-button color="primary" type="submit">Register</button>
+                    </span>
+                    <span>
+                        <button mat-raised-button color="primary" (click)="goBack()">Back</button>
+                    </span>
                 </div>
             </form>
         </div>

@@ -15,6 +15,7 @@ import {
 export class MenuComponent implements OnInit, AfterViewInit{
 
   @Output() selectedPage: EventEmitter<string> = new EventEmitter();
+  @Output() onCloseSidenav: EventEmitter<boolean>= new EventEmitter();
 
   constructor(){
     console.log("Constr called");
@@ -28,5 +29,9 @@ export class MenuComponent implements OnInit, AfterViewInit{
   }
   menuSwitch(pageValue: string){
     this.selectedPage.emit(pageValue);
+  }
+
+  close(){
+    this.onCloseSidenav.emit(true);
   }
 }

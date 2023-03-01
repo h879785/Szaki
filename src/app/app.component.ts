@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatSidenav } from '@angular/material/sidenav';
+import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 
 
 @Component({
@@ -9,6 +9,7 @@ import { MatSidenav } from '@angular/material/sidenav';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
+  [x: string]: any;
   page=''
   routes: Array<string> =[];
 
@@ -25,5 +26,11 @@ export class AppComponent implements OnInit{
 
   onToggleSidenav(sidenav: MatSidenav){
     sidenav.toggle();
+  }
+
+  onClose(event: any, sidenav: MatSidenav){
+    if(event ===true){
+        sidenav.close();
+    }
   }
 }

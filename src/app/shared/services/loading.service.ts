@@ -11,7 +11,7 @@ export class LoadingService {
   // Callback
   //  Promise
   //  Observable
-  /*
+
   loadingWithPromise(email:string|null,password: string |null): Promise<boolean>{
     return new Promise((resolve,reject)=>{
     setTimeout(()=>{
@@ -23,21 +23,23 @@ export class LoadingService {
       }
     }, 3000);
   });
-}*/
-  //TODO:
-  //CRUD (Create, Read, Update, Delete)
-  loadingWithObservable(email:string|null,password: string|null): Observable<number>{
-    //data stream (adatfolyam)
-    return new Observable((subscriber: Subscriber<number>) =>{
+}
+
+  loadingWithObservable(email:string|null,password: string|null): Observable<boolean>{
+
+    return new Observable((subscriber: Subscriber<boolean>) =>{
       let i =0;
       const interval = setInterval(()=>{
         i++;
-        subscriber.next(1);
         if(i===3){
-          clearInterval(interval)
-          subscriber.complete();
+          if (email === 'test@gmail.com' && password === 'testpw') {
+            subscriber.next(true);
+            subscriber.complete();
+          } else {
+            subscriber.error(false);
+          }
         }
-      });
+      }, 1000);
     });
   }
 }
