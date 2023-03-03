@@ -1,5 +1,5 @@
 <div class="main_component">
-    <div class="div_signup">
+    <div class="div-flex">
             <h1>Csatlakozz hozzánk</h1>
         <form [formGroup]="SignUpForm" (ngSubmit)="onSubmit()">
             
@@ -28,17 +28,14 @@
                         <input matInput type="text" formControlName="lastname" />
                     </mat-form-field>
                 </div>
-                <div class="buttons">
-                    <span>
+                <div>
+                    <span class="buttons">
                         <button mat-raised-button color="primary" type="submit">Register</button>
                     </span>
-                    <span>
+                    <span class="buttons">
                         <button mat-raised-button color="primary" (click)="goBack()">Back</button>
                     </span>
                 </div>
             </form>
         </div>
-    <div class="pic_signup">
-        <p>Kép helye valahol</p>
-    </div>
 </div>

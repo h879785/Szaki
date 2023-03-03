@@ -3,7 +3,8 @@ import {
   OnInit,
   AfterViewInit,
   Output,
-  EventEmitter
+  EventEmitter,
+  Input
 
 } from '@angular/core';
 
@@ -13,9 +14,10 @@ import {
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit, AfterViewInit{
-
+  @Input() loggedInUser?:firebase.default.User|null;
   @Output() selectedPage: EventEmitter<string> = new EventEmitter();
   @Output() onCloseSidenav: EventEmitter<boolean>= new EventEmitter();
+
 
   constructor(){
     console.log("Constr called");
@@ -31,7 +33,11 @@ export class MenuComponent implements OnInit, AfterViewInit{
     this.selectedPage.emit(pageValue);
   }
 
-  close(){
+  close(logout?:boolean){
+    
+      this.onCloseSidenav.emit(true);
+      if(logout){
     this.onCloseSidenav.emit(true);
+    }
   }
 }

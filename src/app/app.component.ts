@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
+import { AuthService } from './shared/services/auth.service';
 
 
 @Component({
@@ -12,11 +13,16 @@ export class AppComponent implements OnInit{
   [x: string]: any;
   page=''
   routes: Array<string> =[];
+  loggedInUser?: firebase.default.User | null
 
-  constructor(private router: Router){}
+  constructor(private router: Router,private authService: AuthService){}
 
   ngOnInit() {
-
+    this.authService.isUserLoggedIn().subscribe(user=>{
+      this.loggedInUser =user;
+    },error=>{
+      console.error(error);
+    })
   };
 
 
@@ -33,4 +39,12 @@ export class AppComponent implements OnInit{
         sidenav.close();
     }
   }
+  logout(_?: boolean){
+    this.authService.logout().then(()=>{
+      console.log('Logged out!')
+    }).catch(error=>{
+      console.error(error);
+    })
+    ;
+}
 }

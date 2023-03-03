@@ -20,11 +20,15 @@ form {
     align-self: center;
 }
 
-.subForm{
+.subForm {
     width: 100%;
     display: inline-grid;
 }
 
-.buttons{
+.buttons {
     padding: 5px;
+}
+
+button {
+    width: 100px;
 }

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "social-media-7e0a2": {
+      "hosting": {
+        "my_app": [
+          "social-media-7e0a2"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "social-media-7e0a2"
+  }
+}

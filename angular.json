@@ -99,6 +99,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "my_app:build:production",
+            "firebaseProject": "social-media-7e0a2",
+            "firebaseHostingSite": "social-media-7e0a2"
+          }
         }
       }
     }
