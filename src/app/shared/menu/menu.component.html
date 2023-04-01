@@ -1,11 +1,15 @@
 <mat-nav-list> 
-    <a mat-list-item routerLink="/main" (click)="close()">
+    <a mat-list-item routerLink="/main" (click)="close(true)">
         <mat-icon>grid_view</mat-icon>
         <span>Main</span> 
     </a>
-    <a mat-list-item routerLink="/error" (click)="close()">
+    <a mat-list-item routerLink="/error" (click)="close(true)">
         <mat-icon>warning</mat-icon>
         <span>Error</span> 
+    </a>
+    <a mat-list-item routerLink="/profile" (click)="close(true)">
+        <mat-icon>profile</mat-icon>
+        <span>Profile</span> 
     </a>
     <a mat-list-item routerLink="/signup" (click)="close(true)">
         <mat-icon>login</mat-icon>
@@ -16,6 +20,4 @@
         <mat-icon>Login</mat-icon>
         <span>Login</span> 
     </a>
-
-
 </mat-nav-list>

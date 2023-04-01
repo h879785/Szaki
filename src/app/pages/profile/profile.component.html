@@ -1,0 +1,44 @@
+<div *ngIf="users.length">
+    <div *ngFor="let user of users; let i = index;">
+        <mat-card fxLayout fxLayoutGap="20px">
+            <span fxFlex="1 1 50%">
+                <mat-card-header>
+                    <mat-card-title>{{user.name?.firstname}} {{user.name?.lastname}}</mat-card-title>
+                </mat-card-header>
+    
+                <mat-card-content>
+                    <div>{{user.email}}</div>
+                    <div *ngIf="user.id">
+                        <button mat-raised-button color="primary" (click)="deleteUser(user.id)" type="submit">Delete</button>
+                    </div>
+                    <div (ngSubmit)="updateUser()">
+                        <button mat-raised-button color="primary" type="submit">Update</button>
+                    </div>
+                </mat-card-content>
+            </span>
+    
+        </mat-card>
+    </div>
+</div>
+
+<div *ngIf="user">
+    <mat-card fxLayout fxLayoutGap="20px">
+        <span fxFlex="1 1 50%">
+            <mat-card-header>
+                <mat-card-title>{{user.name?.firstname}} {{user.name?.lastname}}</mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content>
+                <div>{{user.id}}</div>
+                <div>{{user.email}}</div>
+                <div *ngIf="user.id" (ngSubmit)="deleteUser(user.id)">
+                    <button mat-raised-button color="primary" type="submit">Delete</button>
+                </div>
+                <div (ngSubmit)="updateUser()">
+                    <button mat-raised-button color="primary" type="submit">Update</button>
+                </div>
+            </mat-card-content>
+        </span>
+
+    </mat-card>
+</div>

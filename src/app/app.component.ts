@@ -20,8 +20,10 @@ export class AppComponent implements OnInit{
   ngOnInit() {
     this.authService.isUserLoggedIn().subscribe(user=>{
       this.loggedInUser =user;
+      localStorage.setItem('user',JSON.stringify(this.loggedInUser));
     },error=>{
       console.error(error);
+      localStorage.setItem('user',JSON.stringify('null'));
     })
   };
 
