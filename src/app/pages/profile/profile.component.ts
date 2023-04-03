@@ -24,7 +24,6 @@ export class ProfileComponent implements OnInit,OnChanges {
   ngOnInit():void{
     this.userService.getAll().subscribe(user => {
       this.users = user;
-      console.log(this.users)
     })
     const user = JSON.parse(localStorage.getItem('user') as string) as firebase.default.User;
 
@@ -33,7 +32,6 @@ export class ProfileComponent implements OnInit,OnChanges {
     })
   }
   deleteUser(id :string){
-    console.log(id)
     this.userService.delete(id)
   }
   updateUser(){

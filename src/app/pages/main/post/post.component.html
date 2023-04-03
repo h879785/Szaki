@@ -1,37 +1,21 @@
-<div class="div-card">
+<div class="div-card" *ngIf="user">
     <mat-card fxLayout fxLayoutGap="20px">
         <span fxFlex="1 1 50%">
             <mat-card-header>
-                <mat-card-title>Név</mat-card-title>
+                <mat-card-title>{{user.name?.firstname}} {{user.name?.lastname}}</mat-card-title>
             </mat-card-header>
 
             <mat-card-content>
-                
+                <form [formGroup]="postForm" (ngSubmit)="addPost()">
+                <div>
+                    <mat-form-field>
+                        <mat-label for="post">Post: </mat-label>
+                        <textarea matInput rows="3" cols="5" formControlName="post"></textarea>
+                    </mat-form-field>
+                    <button mat-raised-button color="primary" type="submit">Add Post</button>
+                </div>
+            </form>
             </mat-card-content>
-        </span>
-        <span fxFlex="1 1 50%">
-            <mat-card-actions>
-                <form>
-                    <div>
-                        <mat-form-field>
-                            <mat-label for="username">Username: </mat-label>
-                            <input matInput type="text" formControlName="username" />
-                        </mat-form-field>
-                    </div>
-                    <div class="break"></div>
-                    <div>
-                        <mat-form-field>
-                            <mat-label for="comment">Comment: </mat-label>
-                            <textarea matInput rows="10" cols="50" formControlName="comment"></textarea>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="break"></div>
-                    <div>
-                        <button mat-raised-button color="primary" type="submit">ADD</button>
-                    </div>
-                </form>
-            </mat-card-actions>
         </span>
     </mat-card>
 </div>
