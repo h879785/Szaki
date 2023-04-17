@@ -21,7 +21,7 @@ export class SignupComponent implements OnInit{
       firstname:  new FormControl(),
       lastname:   new FormControl(),
     })
-
+    
   })
 
   constructor(private router: Router,private location: Location, private authService: AuthService,private userService: UserService) { }
@@ -40,7 +40,8 @@ export class SignupComponent implements OnInit{
         name: {
           firstname: this.SignUpForm.get('name.firstname')?.value as string,
           lastname: this.SignUpForm.get('name.lastname')?.value as string         
-        }
+        },
+        friends: []
       };
       //TODO: insert user
       this.userService.create(user).then(_=>{

@@ -1,4 +1,4 @@
-div {
+.post_main {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -6,10 +6,23 @@ div {
     height: 100%;
 }
 
-.main_component {
-    height: 100vh;
+.post_div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+    margin: auto;
+    width: 50%;
 }
 
-form div {
-    padding: 5px 5px 5px 5px;
+.post_list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+    margin: auto;
+    width: 50%;
 }
+

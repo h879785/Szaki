@@ -18,3 +18,30 @@ span {
 mat-form-field {
     width: 50%;
 }
+mat-card-header {
+    display: block;
+    margin: auto;
+    height: 100%;
+}
+
+.profile_pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: auto;
+    border: 3px solid #fff;
+    background-size: cover;
+  }
+
+  .profile_content {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .update_profile, .div-card {
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+    height: 100%;
+  }
+  

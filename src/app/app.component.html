@@ -16,6 +16,7 @@
                     <li *ngIf="loggedInUser"><a routerLink="/error">Error</a></li>
                     <li *ngIf="loggedInUser"><a  routerLink="/profile">Profile</a></li>
                     <li *ngIf="!(loggedInUser)"><a routerLink="/login">Login</a></li>
+                    <li *ngIf="loggedInUser"><a routerLink="/chat"><mat-icon> chat_bubble_outline</mat-icon></a></li>
                     <li *ngIf="loggedInUser"><a routerLink="/login" (click)="logout()">Logout</a></li>
                     <li><a routerLink="/signup">SignUp</a></li>
                 </ul>

@@ -1,4 +1,4 @@
-<div *ngIf="allposts.length">
+<div class="div-card"*ngIf="allposts.length">
     <mat-card fxLayout fxLayoutGap="20px">
         <span fxFlex="1 1 50%">
                 <div *ngFor="let allpost of allposts; let i = index;">
@@ -18,7 +18,7 @@
 
     </mat-card>
 </div>
-<div *ngIf="myposts.length">
+<div class="div-card" *ngIf="myposts.length">
     <mat-card fxLayout fxLayoutGap="20px">
         <span fxFlex="1 1 50%">
                 <div *ngFor="let mypost of myposts; let i = index;">

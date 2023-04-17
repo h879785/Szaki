@@ -38,7 +38,7 @@ export class PostService {
   }
 
   getMyPosts(myid: string) {
-    return this.afs.collection<Post>(this.collectionName, ref => ref.where('creator', '==', myid).orderBy('date', 'asc')).valueChanges();
+    return this.afs.collection<Post>(this.collectionName, ref => ref.where('creator', '==', myid).orderBy('date', 'desc')).valueChanges();
   }
 
   loadImageMeta(metaUrl: string): Observable<Array<Image>>{

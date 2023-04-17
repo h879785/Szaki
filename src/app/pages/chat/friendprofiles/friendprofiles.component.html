@@ -1,0 +1,27 @@
+<div class="main">
+    <mat-form-field class="search-bar">
+        <input matInput type="text" placeholder="Search..." />
+        <button class="button" mat-raised-button color="primary" placeholder="Search..." type="submit">
+            <mat-icon>search</mat-icon>
+        </button>
+    </mat-form-field>
+<div *ngIf="friendsInput && friendsInput.length > 3" class="scrollable_list" >
+        <div class="friends_card" *ngFor="let friend of friendsInput; let i = index;">
+            <mat-card fxLayout fxLayoutGap="20px">
+                <span fxFlex="1 1 50%">
+                    <mat-card-header *ngIf="friend">
+                        <mat-card-title>{{friend.name?.firstname}} {{friend.name?.lastname}}</mat-card-title>
+                    </mat-card-header>
+                    <form (ngSubmit)="friendUser(friend)">
+                    <mat-card-content>
+                        <button mat-raised-button color="primary" type="submit">
+                            <mat-icon>message</mat-icon>
+                        </button>
+                    </mat-card-content>
+                </form>
+                </span>
+        
+            </mat-card>
+        </div>
+</div>
+  </div>

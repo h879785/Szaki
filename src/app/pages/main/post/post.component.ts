@@ -71,6 +71,6 @@ export class PostComponent implements OnInit,OnChanges {
     }
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
   }
 }

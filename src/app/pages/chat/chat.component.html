@@ -1,0 +1,4 @@
+<div class="main_component">
+<app-friendprofiles [friendsInput]="friends" (friendObjectEmitter)="loadChat($event)" class="friend_card"></app-friendprofiles>
+<app-messanger [chat]="chosenFriend" class="chat_card"></app-messanger>
+</div>

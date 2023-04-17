@@ -1,0 +1,33 @@
+<div class="messager">
+    <div class="chat_name" *ngIf="chosenFriend">
+        <span>{{chosenFriend.name?.firstname}} {{chosenFriend.name?.lastname}}</span>
+    </div>
+    <div class="chat_name" *ngIf="!chosenFriend">
+        <span>Válaszd ki a beszélgető partnered</span>
+    </div>
+    <div class="screen" *ngIf="chatWithFriend?.length || myChats?.length ">
+        <div class="message_container" >
+            <div class="message" *ngFor="let friendmess of chatWithFriend; let i = index;">
+                <div class="message_left" *ngIf="this.me?.id && friendmess.to===this.me?.id">
+                    <span class="message_content" >{{friendmess.message}}</span>
+                </div>
+            </div>
+            <div class="message" *ngFor="let mess of myChats; let i = index; ">
+                <div class="message_right">
+                    <span class="message_content" *ngIf="mess.to===this.chosenFriend?.id">{{mess.message}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <mat-form-field class="send">
+        <form [formGroup]="messageForm" (ngSubmit)="addMessage()">
+        <input matInput type="text" formControlName="message"/>
+            <span class="button">
+                <button mat-raised-button color="primary" type="submit">
+                    <mat-icon>send</mat-icon>
+                </button>
+            </span>
+        </form>
+    </mat-form-field>
+</div>
+
