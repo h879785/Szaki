@@ -44,4 +44,54 @@ mat-card-header {
     vertical-align: top;
     height: 100%;
   }
+
+  .div_button{
+    display: flex;
+    flex-wrap: wrap;
+  justify-content: space-between;
+  }
+
+  .profile_content{
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .post_profile_pic {
+    margin-top: 0;
+    margin-left: 0;
+    height: 40px;
+    width: 40px;
+  }
   
+  mat-card-title{
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .non_post{
+    height: 100%;
+  }
+
+  .send {
+    position: relative;
+    width: 200px;
+    margin: auto;
+    border-radius: 10px;
+  }
+
+  .checkbutton{
+    height: 24px;
+    width: 24px;
+  }
+
+  .button {
+    height: 24px;
+    width: 24px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    float: right;
+    margin-top: 5px;
+  }

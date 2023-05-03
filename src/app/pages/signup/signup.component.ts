@@ -16,24 +16,26 @@ export class SignupComponent implements OnInit{
   SignUpForm = new FormGroup({
     email :      new FormControl(),
     password:   new FormControl(),
-    repassword: new FormControl(),
     name:       new FormGroup({
       firstname:  new FormControl(),
       lastname:   new FormControl(),
-    })
-    
+    }),
+    birthdate: new FormControl(),
+    gender:   new FormControl(),
+
   })
 
   constructor(private router: Router,private location: Location, private authService: AuthService,private userService: UserService) { }
 
   ngOnInit(): void {
   }
+
+  errormessage?: String;
+  pw?:String;
   
   onSubmit(){
-    console.log(this.SignUpForm.value);
-
     this.authService.signup(this.SignUpForm.get('email')?.value,this.SignUpForm.get('password')?.value).then(cred=>{
-      console.log(cred)
+    
       const user : User = {
         id: cred.user?.uid as string,
         email: this.SignUpForm.get('email')?.value as string,
@@ -41,17 +43,23 @@ export class SignupComponent implements OnInit{
           firstname: this.SignUpForm.get('name.firstname')?.value as string,
           lastname: this.SignUpForm.get('name.lastname')?.value as string         
         },
-        friends: []
+        birthdate: this.SignUpForm.get('birthdate')?.value as Date,
+        gender: this.SignUpForm.get('gender')?.value as string,
+        friends: [],
       };
-      //TODO: insert user
+
+      if (!user.email || !user?.name?.firstname || !user.name.lastname || !user.birthdate || !user.gender) {
+        this.errormessage='Hiányzó adatok! Kérjük figyelmesen töltsön ki minden mezőt!';
+      }
+      else{
       this.userService.create(user).then(_=>{
-        this.router.navigateByUrl('/main');
-        console.log('Added succ')
+        this.router.navigateByUrl('/login');
+        this.errormessage='Sikeresen hozzáadva';
       }).catch(error=>{
-        console.error(error)
-      })
+        this.errormessage='Hiányzó adatok! Kérjük figyelmesen töltsön ki minden mezőt!';
+      })}
     }).catch(error=>{
-      console.error(error);
+      this.errormessage='Hiányzó adatok! Kérjük figyelmesen töltsön ki minden mezőt!';
     });
   }
 

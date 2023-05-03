@@ -1,8 +1,10 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Image } from 'src/app/shared/models/Image';
 import { Post } from 'src/app/shared/models/Post';
 import { User } from 'src/app/shared/models/User';
+import { ImageService } from 'src/app/shared/services/image.service';
 import { PostService } from 'src/app/shared/services/post.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
@@ -16,19 +18,21 @@ export class PostComponent implements OnInit,OnChanges {
 
   user?:User;
   post?:Post;
+  defaultPP?: Image;
   
   postForm = this.newPost({
     id: "",
     creator: "",
     post: "",
     date: 0
-  });
+    });
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private userService: UserService,
-    private postService: PostService
+    private postService: PostService,
+    private imageService: ImageService
   ) {}
 
 
@@ -40,6 +44,9 @@ export class PostComponent implements OnInit,OnChanges {
     }, error => {
       console.error(error);
     });
+    this.imageService.loadImage("images/default_boy.png").subscribe(image=>{
+      this.defaultPP=image;
+    })
   }
 
   newPost(model: Post){
@@ -58,9 +65,9 @@ export class PostComponent implements OnInit,OnChanges {
           creator: this.user?.id,
           post: this.postForm.get("post")?.value as string,
           date: new Date().getTime(),
+          like: [],
+          comments: [],
         };
-  
-
 
         this.postService.createPost(newpost).then(_ => {
           console.log(this.postForm.value)
@@ -70,6 +77,7 @@ export class PostComponent implements OnInit,OnChanges {
       }
     }
   }
+
 
   ngOnChanges(): void {
   }

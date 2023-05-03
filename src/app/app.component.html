@@ -9,16 +9,16 @@
                     <mat-icon>menu</mat-icon>
                 </button>
             </div>
-            <div>Valami</div>
+            <div *ngIf="loggedInUser" routerLink="/main"><button>Friends Website</button></div>
             <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
                 <ul fxLayout fxLayoutGap="10px" class="navigation-items">
                     <li *ngIf="loggedInUser"><a  routerLink="/main">Main</a></li>
-                    <li *ngIf="loggedInUser"><a routerLink="/error">Error</a></li>
                     <li *ngIf="loggedInUser"><a  routerLink="/profile">Profile</a></li>
                     <li *ngIf="!(loggedInUser)"><a routerLink="/login">Login</a></li>
                     <li *ngIf="loggedInUser"><a routerLink="/chat"><mat-icon> chat_bubble_outline</mat-icon></a></li>
                     <li *ngIf="loggedInUser"><a routerLink="/login" (click)="logout()">Logout</a></li>
-                    <li><a routerLink="/signup">SignUp</a></li>
+                    <li *ngIf="!(loggedInUser)"><a routerLink="/signup">SignUp</a></li>
+                    <li *ngIf="loggedInUser"><a  routerLink="/profile" *ngIf="defaultPP"><img class="profile_pic" [src]="defaultPP" ></a></li>
                 </ul>
             </div>
         </mat-toolbar>

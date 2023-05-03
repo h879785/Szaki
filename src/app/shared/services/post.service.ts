@@ -41,11 +41,19 @@ export class PostService {
     return this.afs.collection<Post>(this.collectionName, ref => ref.where('creator', '==', myid).orderBy('date', 'desc')).valueChanges();
   }
 
+  getPost(postid: string) {
+    return this.afs.collection<Post>(this.collectionName, ref => ref.where('id', '==', postid)).valueChanges();
+  }
+
   loadImageMeta(metaUrl: string): Observable<Array<Image>>{
     return this.afs.collection<Image>(this.collectionName).valueChanges();
   }
 
   loadImage(imageUrl: string){
     return this.storage.ref(imageUrl).getDownloadURL();
+  }
+  addLike(postID: string,likes: Array<string>){
+    const data: Partial<Post> = { like: likes };
+    this.afs.collection<Post>(this.collectionName).doc(postID).update(data);
   }
 }

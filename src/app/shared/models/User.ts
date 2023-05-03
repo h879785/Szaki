@@ -5,5 +5,10 @@ export interface User {
         firstname?: string;
         lastname?: string;
     }
+    gender?: string;
+    birthdate?: Date;
+    birthplace?: string;
     friends?: string[];
+    work?: string;
+    hobbies?: string;
 }

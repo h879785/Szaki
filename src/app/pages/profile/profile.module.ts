@@ -9,12 +9,22 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { DatepipePipe } from '../../shared/pipe/datepipe.pipe';
+import { BirthpipePipe } from '../../shared/pipe/birthpipe.pipe';
+
+
 
 
 
 @NgModule({
   declarations: [
-    ProfileComponent
+    ProfileComponent,
+    DatepipePipe,
+    BirthpipePipe
   ],
   imports: [
     CommonModule,
@@ -25,6 +35,10 @@ import { MatButtonModule } from '@angular/material/button';
     MatIconModule,
     MatFormFieldModule,
     MatButtonModule,
+    MatInputModule,
+    FlexLayoutModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ]
 })
 export class ProfileModule { }

@@ -17,7 +17,8 @@ export class LoginComponent implements OnInit,OnDestroy{
 
   loading: boolean = false;
   loadingSubscription?: Subscription;
-  loadingObservation?: Observable<boolean>
+  loadingObservation?: Observable<boolean>;
+  errormessage? : string;
   
   constructor(private router: Router, private loadingService: LoadingService,private authService: AuthService) { }
 
@@ -28,11 +29,11 @@ export class LoginComponent implements OnInit,OnDestroy{
   async login() {
       this.loading=true;
       this.authService.login(this.email.value, this.password.value).then(cred => {
-        console.log(cred);
         this.router.navigateByUrl('/main');
         this.loading = false;
       }).catch(error => {
         console.error(error);
+        this.errormessage='Hibás felhasználónév vagy jelszó!';
         this.loading = false;
       });
   

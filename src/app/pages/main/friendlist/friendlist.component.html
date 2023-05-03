@@ -1,0 +1,21 @@
+<div>Kit ismerhetek
+    <div class="main" *ngIf="users && me" >
+        <div class="friends_card" *ngFor="let user of users; let i = index;" fxLayout="column" fxLayoutGap="20px">
+            <mat-card>
+                <span *ngIf="me.friends && user.id && indexOf(user.id) && user.id!==me.id">
+                    <mat-card-header>
+                        <mat-card-title>{{user.name?.firstname}} {{user.name?.lastname}}</mat-card-title>
+                    </mat-card-header>
+                    <form (ngSubmit)="addFriend(user.id)">
+                    <mat-card-content>
+                        <div>{{user.friends?.length}} Ismerős</div>
+                        <button mat-raised-button color="primary" type="submit">
+                            <mat-icon>check</mat-icon>
+                        </button>
+                    </mat-card-content>
+                </form>
+                </span>
+            </mat-card>
+        </div>
+    </div>
+</div>

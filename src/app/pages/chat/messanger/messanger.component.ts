@@ -43,9 +43,7 @@ export class MessangerComponent implements OnInit{
       this.me=user;
       if(this.me?.id)
       this.messageService.getMyChats(this.me?.id).subscribe(messages=>{
-        console.log(messages)
        this.myChats=messages;
-       console.log(this.myChats)
       })
       })
   }

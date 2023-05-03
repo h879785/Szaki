@@ -11,13 +11,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { PostlistComponent } from './postlist/postlist.component';
+import { MatIconModule } from '@angular/material/icon';
+import { DatepipePipe } from '../../shared/pipe/datepipe.pipe';
+import { FriendlistComponent } from './friendlist/friendlist.component';
 
 
 @NgModule({
   declarations: [
     MainComponent,
     PostComponent,
+   // DatepipePipe,
     PostlistComponent,
+   FriendlistComponent,
   ],
   imports: [
     CommonModule,
@@ -27,8 +32,9 @@ import { PostlistComponent } from './postlist/postlist.component';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatIconModule,
     MatCardModule,
-    FlexLayoutModule
+    FlexLayoutModule,
   ]
 })
 export class MainModule { }

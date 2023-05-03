@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '../../shared/models/User';
 import { Image } from '../../shared/models/Image';
@@ -20,8 +20,27 @@ export class ProfileComponent implements OnInit,OnChanges {
     friend: Array<string>=[];
     defaultPP?: Image;
     myposts: Array<Post>=[];
+    post?: Post;
+    newcomment?: Boolean;
+    isup?: Boolean;
+    isbp?:Boolean;
+    birthdate? :Date;
 
-  
+    workForm = new FormGroup({
+      work :   new FormControl(),
+    })
+    birthplaceForm = new FormGroup({
+      birthplace :   new FormControl(),
+    })
+    
+    /*comment = this.commentForm({
+      id:'',
+      postid : '',
+      from: '',
+      comment : '',
+      date: Date,
+      like: [],
+    })*/
   
   constructor(
     private fb: FormBuilder,
@@ -47,18 +66,89 @@ export class ProfileComponent implements OnInit,OnChanges {
       this.myposts = mypost;
      })
 
+
   }
-  deleteUser(id :string){
-    this.userService.delete(id)
+  deletePost(id :string){
+    this.postService.delete(id);
   }
   updateUser(){
-   
+    const me = JSON.parse(localStorage.getItem('user') as string) as firebase.default.User;
+    this.userService.getById(me.uid)?.subscribe(user =>{
+      this.me= user;
+    })
+    const updatedUser: User=({
+      id: this.me?.id,
+      email: this.me?.email,
+      name: {
+          firstname: this.me?.name?.firstname,
+          lastname: this.me?.name?.lastname,
+      },
+      gender: this.me?.gender,
+      birthdate: this.me?.birthdate,
+      birthplace: this.me?.birthplace || this.birthplaceForm.get("birthplace")?.value as string ||'',
+      friends: this.me?.friends,
+      work: this.me?.work || this.workForm.get("work")?.value as string || '',
+      hobbies: '',
+    })
+   this.userService.update(updatedUser)
+   this.isup=false
+
   }
+  isUpdate(){
+    if(this.isup){
+      this.isup=false
+    }else{
+    this.isup=true
+    }
+  }
+
+  isUpdatebp(){
+    if(this.isbp){
+      this.isbp=false
+    }else{
+    this.isbp=true
+    }
+  }
+
+  newComment(){
+    if(this.newcomment){
+      this.newcomment= false
+    }else{
+    this.newcomment=true;
+    }
+  }
+
+  /*addComment(postId: string){
+      const newComment: Comment = {
+        id: '',
+        postid: postId,
+        from: this.me?.id,
+        comment: this.commentForm.get("comment")?.value as string,
+        date: new Date().getTime(),
+        like: [],
+      };
+  
+      this.commentService.createComment(newComment).then(_=>{
+        console.log("sikeres comment! ")
+      }).catch(error=>{
+        console.log(error)
+      })
+  }*/
+
+  addComment(post: string){
+    
+  }
+
+  likePost(postId: string){
+  //  this.postService.getPost(postId)?.subscribe(post =>{
+   //   this.post = post;
+   // })
+  }
+
   addFriend(friendId: string){
     const me = JSON.parse(localStorage.getItem('user') as string) as firebase.default.User;
     if(this.me?.friends?.indexOf(friendId)===-1){
       this.friend.push(friendId);
-      console.log(this.friend)
       this.userService.addFriend(me.uid,this.friend);
     }
   }

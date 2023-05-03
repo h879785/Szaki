@@ -3,4 +3,6 @@ export interface Post{
     creator? :string;
     post: string;
     date?: number;
+    like?: string[];
+    comments?: string[];
 }
