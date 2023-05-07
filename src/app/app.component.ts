@@ -15,8 +15,9 @@ export class AppComponent implements OnInit{
   page=''
   routes: Array<string> =[];
   loggedInUser?: firebase.default.User | null
-  defaultPP?: Image;
-  imageP?: string;
+  malePP?: Image;
+  femalePP?: Image;
+  nbPP?: Image;
 
 
   constructor(
@@ -29,14 +30,11 @@ export class AppComponent implements OnInit{
     this.authService.isUserLoggedIn().subscribe(user=>{
       this.loggedInUser =user;
       localStorage.setItem('user',JSON.stringify(this.loggedInUser));
-      this.imageService.loadImage("images/universe.png").subscribe(image=>{
-        this.defaultPP=image;
-      })
     },error=>{
       console.error(error);
       localStorage.setItem('user',JSON.stringify('null'));
     })  
-
+    
   };
 
 

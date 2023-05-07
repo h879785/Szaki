@@ -25,6 +25,9 @@ export class ProfileComponent implements OnInit,OnChanges {
     isup?: Boolean;
     isbp?:Boolean;
     birthdate? :Date;
+    malePP?: Image;
+    femalePP?: Image;
+    nbPP?: Image;
 
     workForm = new FormGroup({
       work :   new FormControl(),
@@ -33,14 +36,6 @@ export class ProfileComponent implements OnInit,OnChanges {
       birthplace :   new FormControl(),
     })
     
-    /*comment = this.commentForm({
-      id:'',
-      postid : '',
-      from: '',
-      comment : '',
-      date: Date,
-      like: [],
-    })*/
   
   constructor(
     private fb: FormBuilder,
@@ -60,7 +55,13 @@ export class ProfileComponent implements OnInit,OnChanges {
       this.me= user;
     })
     this.imageService.loadImage("images/default_boy.png").subscribe(image=>{
-      this.defaultPP=image;
+      this.malePP=image;
+    })
+    this.imageService.loadImage("images/default_girl.png").subscribe(image=>{
+      this.femalePP=image;
+    })
+    this.imageService.loadImage("images/universe.png").subscribe(image=>{
+      this.nbPP=image;
     })
     this.postService.getMyPosts(me.uid)?.subscribe(mypost =>{
       this.myposts = mypost;

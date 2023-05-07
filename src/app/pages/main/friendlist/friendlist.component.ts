@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/shared/models/User';
+import { Image } from 'src/app/shared/models/Image';
 import { UserService } from 'src/app/shared/services/user.service';
+import { ImageService } from 'src/app/shared/services/image.service';
 
 @Component({
   selector: 'app-friendlist',
@@ -12,9 +14,14 @@ export class FriendlistComponent implements OnInit{
   me?: User;
   users: Array<User> = [];  
   friend: Array<string>=[];
-
+  malePP?: Image;
+  femalePP?: Image;
+  nbPP?: Image;
+  
 constructor(
-  private userService: UserService
+  private userService: UserService,
+  private imageService: ImageService
+
 )
 {}
 
@@ -25,6 +32,15 @@ constructor(
     })  
     this.userService.getAll().subscribe(users =>{
       this.users=users;
+    })
+    this.imageService.loadImage("images/default_boy.png").subscribe(image=>{
+      this.malePP=image;
+    })
+    this.imageService.loadImage("images/default_girl.png").subscribe(image=>{
+      this.femalePP=image;
+    })
+    this.imageService.loadImage("images/universe.png").subscribe(image=>{
+      this.nbPP=image;
     })
   }
 

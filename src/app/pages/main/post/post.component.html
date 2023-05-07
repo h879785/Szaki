@@ -4,7 +4,7 @@
 
             <mat-card-content class="post_content">
                 <form  class="form" [formGroup]="postForm" (ngSubmit)="addPost()">
-                    <div class="image" *ngIf="defaultPP"><img class="profile_pic" [src]="defaultPP" ></div>
+                    <div class="image" *ngIf="defaultPP" ><img class="profile_pic" [src]="defaultPP" ></div>
                     <mat-form-field>
                         <mat-label for="post">Oszd meg mi jár a fejedben! </mat-label>
                         <textarea matInput rows="3" cols="20" formControlName="post"></textarea>

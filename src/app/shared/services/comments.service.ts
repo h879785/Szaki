@@ -7,7 +7,7 @@ import { Comment } from '../models/Comment';
 @Injectable({
   providedIn: 'root'
 })
-export class PostService {
+export class CommentService {
 
   collectionName= "Comment";
 
@@ -16,11 +16,14 @@ export class PostService {
   ) { }
 
   createComment(comment: Comment){
-    comment.id = this.afs.createId();
       return this.afs.collection<Comment>(this.collectionName).doc(comment.id).set(comment);
   }
 
-  getAllComment(postId: string){
+  getAllComment(){
+      return this.afs.collection<Comment>(this.collectionName).valueChanges();
+   }
+
+  getAllCommentWID(postId: string){
     return this.afs.collection<Comment>(this.collectionName, ref => ref.where('creator', '==', postId).orderBy('date', 'desc')).valueChanges();
   }
 
@@ -30,5 +33,10 @@ export class PostService {
 
   delete(id: string) {
     return this.afs.collection<Comment>(this.collectionName).doc(id).delete();
+  }
+
+  addLike(commentID: string,commentL: Array<string>){
+    const data: Partial<Comment> = { like: commentL };
+    this.afs.collection<Comment>(this.collectionName).doc(commentID).update(data);
   }
 }

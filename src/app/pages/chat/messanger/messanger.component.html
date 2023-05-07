@@ -3,9 +3,9 @@
         <span>{{chosenFriend.name?.firstname}} {{chosenFriend.name?.lastname}}</span>
     </div>
     <div class="chat_name" *ngIf="!chosenFriend">
-        <span>Válaszd ki a beszélgető partnered</span>
+        <span>Válaszd ki a beszélgető partnered!</span>
     </div>
-    <div class="screen" *ngIf="chatWithFriend?.length || myChats?.length ">
+        <div class="screen" >
         <div class="message_container" >
             <div class="message" *ngFor="let friendmess of chatWithFriend; let i = index;">
                 <div class="message_left" *ngIf="this.me?.id && friendmess.to===this.me?.id">

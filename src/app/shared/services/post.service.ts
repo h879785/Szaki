@@ -56,4 +56,9 @@ export class PostService {
     const data: Partial<Post> = { like: likes };
     this.afs.collection<Post>(this.collectionName).doc(postID).update(data);
   }
+  addComment(postID: string,comments: Array<string>){
+    const data: Partial<Post> = { comments: comments };
+    this.afs.collection<Post>(this.collectionName).doc(postID).update(data);
+  }
+
 }

@@ -1,8 +1,10 @@
 <mat-card fxLayout fxLayoutGap="20px" *ngIf="me">
         <span fxFlex="1 1">
             <mat-card-content>
-              <div *ngIf="defaultPP"><img class="profile_pic" [src]="defaultPP" ></div>
-                <div>{{me.name?.firstname}} {{me.name?.lastname}}</div>
+              <div class="image" *ngIf="me.gender==='male'" ><img class="profile_pic" [src]="malePP" ></div>
+              <div class="image" *ngIf="me.gender==='female'" ><img class="profile_pic" [src]="femalePP" ></div>
+              <div class="image" *ngIf="me.gender==='nonbinary'" ><img class="profile_pic" [src]="nbPP" ></div>  
+                   <div>{{me.name?.firstname}} {{me.name?.lastname}}</div>
                 <div>{{me.friends?.length}} ismerős</div>
             </mat-card-content>
         </span>
@@ -79,6 +81,9 @@
               </form>
           </mat-form-field>
       </div>
+      <div *ngIf="me.gender==='male'">Nem: Férfi</div>
+      <div *ngIf="me.gender==='female'">Nem: Nő</div>
+      <div *ngIf="me.gender==='nonbinary'">Nem: Nem bináris</div>
 </div>
 
 <div class="div-card" *ngIf="myposts.length">
@@ -87,19 +92,21 @@
                 <mat-card *ngIf="me"  fxFlex="1 1 50%" fxLayout="column" fxLayoutGap="20px">
                   <mat-card-header>
                     <mat-card-title>
-                      <div *ngIf="defaultPP"><img class="post_profile_pic" [src]="defaultPP" ></div>
-                      {{me.name?.firstname}} {{me.name?.lastname}}
+                      <div class="image" *ngIf="me.gender==='male'" ><img class="post_profile_pic" [src]="malePP" ></div>
+                      <div class="image" *ngIf="me.gender==='female'" ><img class="post_profile_pic" [src]="femalePP" ></div>
+                      <div class="image" *ngIf="me.gender==='nonbinary'" ><img class="post_profile_pic" [src]="nbPP" ></div>  
+                                 {{me.name?.firstname}} {{me.name?.lastname}}
                     </mat-card-title>
                   </mat-card-header>
                   <mat-card-content>
                     <div>{{mypost.post}}</div>
                   </mat-card-content>
                 <mat-card-actions>
-                  <span></span>
+                  <span>{{mypost.like?.length}}</span>
                   <button mat-icon-button (click)="likePost(mypost.id)">
                     <mat-icon >thumb_up</mat-icon>
                   </button>
-                  <span>4</span>
+                  <span>{{mypost.comments?.length}}</span>
                   <button mat-icon-button (click)="newComment()">
                     <mat-icon>chat_bubble</mat-icon>
                   </button>

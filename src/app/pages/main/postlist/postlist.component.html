@@ -1,9 +1,12 @@
 <div class="div-card" *ngIf="allposts.length" fxLayout="column" fxLayoutGap="20px">
   <div *ngFor="let allpost of allposts">
           <div *ngFor="let user of alluser">
-            <mat-card *ngIf="allpost.creator === user.id">
+               <mat-card *ngIf="allpost.creator === user.id">
+              <div *ngIf="allpost.date">{{allpost.date | date}}</div>
+              <div class="image" *ngIf="user.gender==='male'" ><img class="profile_pic" [src]="malePP" ></div>
+              <div class="image" *ngIf="user.gender==='female'" ><img class="profile_pic" [src]="femalePP" ></div>
+              <div class="image" *ngIf="user.gender==='nonbinary'" ><img class="profile_pic" [src]="nbPP" ></div>  
             <mat-card-header>
-              <div *ngIf="defaultPP"><img class="profile_pic" [src]="defaultPP" ></div>
               <mat-card-title>{{user.name?.firstname}} {{user.name?.lastname}}</mat-card-title>
             </mat-card-header>
             <mat-card-content>
@@ -12,28 +15,67 @@
             
           <mat-card-actions>
             <span *ngIf="allpost.like && allpost.like.length >0">{{allpost.like.length}}</span>
-            <button mat-icon-button color="primary" *ngIf="me && me.id && !indexOf(allpost,me.id)" (click)="removeLike(allpost)">
+            <button mat-icon-button color="primary" *ngIf="me && me.id && !indexOf(allpost,me.id)" (click)="removeLike(me.id,allpost)">
               <mat-icon>thumb_up</mat-icon>
             </button>
-            <button mat-icon-button *ngIf="me && me.id && indexOf(allpost,me.id)" (click)="addLike(allpost)">
+            <button mat-icon-button *ngIf="me && me.id && indexOf(allpost,me.id)" (click)="addLike(me.id,allpost)">
               <mat-icon>thumb_up</mat-icon>
             </button>
             <span *ngIf="allpost.comments && allpost.comments.length >0">{{allpost.comments.length}}</span>
-            <button mat-icon-button>
+            <button mat-icon-button (click)="commentCont(allpost.id)">
               <mat-icon>chat_bubble</mat-icon>
             </button>
-            <button mat-icon-button (click)="deletePost()">
+            <button *ngIf="allpost.creator===me?.id" mat-icon-button (click)="deletePost(allpost)">
               <mat-icon>delete</mat-icon>
             </button>
-            <button mat-icon-button (click)="updatePost()">
+            <button *ngIf="allpost.creator===me?.id" mat-icon-button (click)="updateCont(allpost)">
               <mat-icon>edit</mat-icon>
             </button>
           </mat-card-actions>
-          <div *ngIf="allpost.date">{{allpost.date | date}}</div>
-        </mat-card>
-        <div class="addcomment">
+          <div *ngIf="allpost.comments && allpost.comments.length>0">
+              <mat-card *ngFor="let comment of commentList">
+                <mat-card-header *ngIf="allpost.id ===comment.postid ">
+                  <mat-card-header *ngFor="let creator of commentCreator">
+                    {{creator?.name?.firstname}}
+                    {{creator?.name?.lastname}}
+                  </mat-card-header>
+                  {{comment.date | date}}
+                  {{comment.comment}}
+                </mat-card-header>
+                <mat-card-actions>
+                  <span *ngIf="comment.like && comment.like.length >0">{{comment.like.length}}</span>
+                  <button mat-icon-button color="primary" *ngIf="me && me.id && !CindexOf(comment,me.id)" (click)="removeLikeC(me.id,comment)">
+                    <mat-icon>thumb_up</mat-icon>
+                  </button>
+                  <button mat-icon-button *ngIf="me && me.id && CindexOf(comment,me.id)" (click)="addLikeC(me.id,comment)">
+                    <mat-icon>thumb_up</mat-icon>
+                  </button>
+                </mat-card-actions>
+              </mat-card>
+          </div>
+          <mat-form-field *ngIf="addcomment && isucpid===allpost.id" class="send">
+            <form [formGroup]="commentForm"(ngSubmit)=" addComment(allpost.id)">
+            <input matInput type="text" formControlName="comment"/>
+                <span class="button">
+                    <button mat-raised-button color="primary" type="submit">
+                        <mat-icon>check</mat-icon>
+                    </button>
+                </span>
+            </form>
+        </mat-form-field>
+        <mat-form-field *ngIf="!addcomment && isupdate && isucpid===allpost.id" class="send">
+          <form [formGroup]="updateForm"(ngSubmit)=" updatethisPost()">
+          <input matInput type="text" formControlName="post"/>
+              <span class="button">
+                  <button mat-raised-button color="primary" type="submit">
+                      <mat-icon>check</mat-icon>
+                  </button>
+              </span>
+          </form>
+      </mat-form-field>
 
-        </div>
+        </mat-card>
+      
           </div>
     </div>
 </div>

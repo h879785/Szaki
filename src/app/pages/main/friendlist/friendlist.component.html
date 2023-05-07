@@ -4,6 +4,9 @@
             <mat-card>
                 <span *ngIf="me.friends && user.id && indexOf(user.id) && user.id!==me.id">
                     <mat-card-header>
+                        <div class="image" *ngIf="user.gender==='male'" ><img class="profile_pic" [src]="malePP" ></div>
+                        <div class="image" *ngIf="user.gender==='female'" ><img class="profile_pic" [src]="femalePP" ></div>
+                        <div class="image" *ngIf="user.gender==='nonbinary'" ><img class="profile_pic" [src]="nbPP" ></div>            
                         <mat-card-title>{{user.name?.firstname}} {{user.name?.lastname}}</mat-card-title>
                     </mat-card-header>
                     <form (ngSubmit)="addFriend(user.id)">

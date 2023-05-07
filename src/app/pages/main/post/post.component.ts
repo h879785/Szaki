@@ -19,6 +19,9 @@ export class PostComponent implements OnInit,OnChanges {
   user?:User;
   post?:Post;
   defaultPP?: Image;
+  malePP?: Image;
+  femalePP?: Image;
+  nbPP?: Image;
   
   postForm = this.newPost({
     id: "",
@@ -44,10 +47,17 @@ export class PostComponent implements OnInit,OnChanges {
     }, error => {
       console.error(error);
     });
-    this.imageService.loadImage("images/default_boy.png").subscribe(image=>{
-      this.defaultPP=image;
-    })
-  }
+
+      this.imageService.loadImage("images/default_boy.png").subscribe(image=>{
+        this.malePP=image;
+      })
+      this.imageService.loadImage("images/default_girl.png").subscribe(image=>{
+        this.femalePP=image;
+      })
+      this.imageService.loadImage("images/universe.png").subscribe(image=>{
+        this.nbPP=image;
+      })
+    }
 
   newPost(model: Post){
     let formGroup = this.fb.group(model);
@@ -77,7 +87,16 @@ export class PostComponent implements OnInit,OnChanges {
       }
     }
   }
+  profilePic(user:User){
+    if(user.gender === "male"){
+      this.defaultPP = this.malePP
+    }else if (user.gender==="female"){
+      this.defaultPP = this.femalePP
+    } else{
+      this.defaultPP=this.nbPP
+    }
 
+  }
 
   ngOnChanges(): void {
   }
