@@ -19,11 +19,13 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { AngularFireModule} from '@angular/fire/compat';
 import { HttpClientModule } from '@angular/common/http';
+import { GroupsComponent } from './pages/groups/groups.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
+    GroupsComponent,
   ],
   imports: [
     HttpClientModule,

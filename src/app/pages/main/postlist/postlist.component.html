@@ -42,7 +42,7 @@
                   {{comment.date | date}}
                   {{comment.comment}}
                 </mat-card-header>
-                <mat-card-actions>
+                <mat-card-actions *ngIf="allpost.id ===comment.postid">
                   <span *ngIf="comment.like && comment.like.length >0">{{comment.like.length}}</span>
                   <button mat-icon-button color="primary" *ngIf="me && me.id && !CindexOf(comment,me.id)" (click)="removeLikeC(me.id,comment)">
                     <mat-icon>thumb_up</mat-icon>

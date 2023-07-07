@@ -29,6 +29,7 @@ export class PostlistComponent implements OnInit {
   allposts: Array<Post>=[];
   alluser: Array<User>=[];
   like?: Array<string>=[];
+  addlike?: boolean=false;
   likeC?: Array<string>=[];
   comments?: Array<string>=[];
   commentList?: Array<Comment>=[];
@@ -58,6 +59,7 @@ export class PostlistComponent implements OnInit {
   ngOnInit(): void {
     this.postService.getAllPost().subscribe(allpost => {
       this.allposts = allpost
+      console.log(this.allposts)
     })
     this.userService.getAll().subscribe(user =>{
       this.alluser= user;
@@ -132,36 +134,35 @@ export class PostlistComponent implements OnInit {
 
 
   addLike(userid :string,post: Post){
-    if(post.like?.indexOf(userid)===-1 ){
+    this.like = post.like
+    if(post.like?.indexOf(userid)===-1 && this.like ){
       this.like?.push(userid);
-      if(this.like)
       this.postService.addLike(post.id,this.like); 
   }
   }
 
   addLikeC(userid :string,comment: Comment){
-    if(comment.like?.indexOf(userid)===-1 ){
-      this.likeC?.push(userid);
-      if(comment.id && this.likeC)
+    this.likeC = comment.like
+    if(comment.like?.indexOf(userid)===-1 && comment.id && this.likeC){
+      this.likeC?.push(userid)
       this.commentService.addLike(comment.id,this.likeC); 
   }
   }
 
   removeLike(userid :string,post: Post){
     this.like=post.like
-    console.log(this.like)
     if(this.like){
     this.like.splice(this.like?.indexOf(userid),1)
-    console.log(this.like)
-    }
+    this.postService.addLike(post.id,this.like); 
+  }
 }
   removeLikeC(userid :string,comment: Comment){
-  this.like=comment.like
-  console.log(this.like)
-  if(this.like){
-  this.like.splice(this.like?.indexOf(userid),1)
-  console.log(this.like)
-  }
+  this.likeC=comment.like
+  console.log(this.likeC)
+  if(this.likeC && comment.id){
+  this.likeC.splice(this.likeC?.indexOf(userid),1)
+  this.commentService.addLike(comment.id,this.likeC); 
+}
 }
 
   indexOf(post: Post,id: string){
@@ -179,8 +180,6 @@ export class PostlistComponent implements OnInit {
       return false;
     }
   }
-
-
   
   deletePost(post: Post){
     if(post.creator === this.me?.id){

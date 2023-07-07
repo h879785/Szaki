@@ -12,6 +12,7 @@
             <div *ngIf="loggedInUser" routerLink="/main"><button>Friends Website</button></div>
             <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
                 <ul fxLayout fxLayoutGap="10px" class="navigation-items">
+                    <li *ngIf="loggedInUser"><a  routerLink="/groups">Groups</a></li>
                     <li *ngIf="loggedInUser"><a  routerLink="/main">Main</a></li>
                     <li *ngIf="loggedInUser"><a  routerLink="/profile">Profile</a></li>
                     <li *ngIf="!(loggedInUser)"><a routerLink="/login">Login</a></li>
