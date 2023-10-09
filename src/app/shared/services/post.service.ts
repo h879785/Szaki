@@ -27,7 +27,6 @@ export class PostService {
 
   getAllPost(){
     return this.afs.collection<Post>(this.collectionName, ref => ref.orderBy('date', 'desc')).valueChanges();
-    //return this.afs.collection<Post>(this.collectionName).valueChanges();
   }
 
   update(post: Post) {

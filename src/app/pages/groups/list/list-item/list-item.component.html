@@ -1,0 +1,15 @@
+<mat-card *ngIf="groups " fxLayout="column" fxLayoutGap="20px">
+    <ng-container *ngIf="groups.creator">
+          <!-- <button mat-button color="warn" style="cursor: pointer;"> -->
+            <mat-card 
+            style="cursor: pointer;"
+            [routerLink]="[groups.id]"
+            routerLinkActive="active"
+            >
+              <mat-card-title-group>
+                <mat-card-title>{{groups.name}}</mat-card-title>
+              </mat-card-title-group>
+            </mat-card>
+          <!-- </button> -->
+    </ng-container>
+</mat-card>

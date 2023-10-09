@@ -1,5 +1,5 @@
 import { Component, OnInit,OnDestroy } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { AuthService } from '../../shared/services/auth.service';
@@ -38,6 +38,10 @@ export class LoginComponent implements OnInit,OnDestroy{
       });
   
 }
+
+  isFormValid(){
+    return this.email.valid && this.password.valid;
+  } 
 
   ngOnDestroy(): void {
     this.loadingSubscription?.unsubscribe();

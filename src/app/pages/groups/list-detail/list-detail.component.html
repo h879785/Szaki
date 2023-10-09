@@ -1,0 +1,44 @@
+           <ng-container *ngIf="group && group !== null">
+                <div>
+                    <mat-card>
+                      <mat-card-title>{{group.name}}</mat-card-title>
+                      <mat-card-content>
+                        <p>{{group.createdate}}</p>
+                        <p>{{group.id}}</p>
+                        <mat-chip-listbox *ngFor="let member of group.members">
+                          <mat-chip>
+                            {{member.name?.firstname}} {{member.name?.lastname}}
+                          </mat-chip>
+                        </mat-chip-listbox>
+
+                      </mat-card-content>
+                      
+                    </mat-card>
+                </div>
+                <div class="div-card">
+                  <mat-card fxLayout fxLayoutGap="20px">
+                      <span>
+                          <mat-card-content class="post_content">
+                              <form  class="form" [formGroup]="grouppostForm">
+                                  <mat-form-field>
+                                      <mat-label for="post">Oszd meg mi jár a fejedben! </mat-label>
+                                      <textarea matInput rows="3" cols="20" formControlName="post" required></textarea>
+                                  </mat-form-field>
+                                  <button 
+                                  mat-raised-button 
+                                  color="primary"
+                                   type="submit"
+                                   [disabled]="grouppostForm.get('post')?.value?.length === 0"
+                                   >Közzététel</button>
+                          </form>
+                          </mat-card-content>
+                      </span>
+                  </mat-card>
+              </div>
+              <div class="post-list">
+                <app-post-list *ngFor="let post of groupPost"></app-post-list>
+              </div>
+              </ng-container>
+            <div class="error-message" *ngIf="message !=='' " >
+              {{message}}
+            </div>

@@ -1,0 +1,48 @@
+
+  .form-container {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  mat-card-title {
+    font-size: 28px;
+    margin-bottom: 30px;
+    text-align: center;
+    color: whitesmoke
+  }
+  
+  mat-form-field {
+    display: block;
+    margin-bottom: 20px;
+    font-size: 18px;
+    width: 100%;
+  }
+  
+  mat-label {
+    font-size: 16px;
+  }
+  
+  mat-card-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .terms {
+    font-size: 14px;
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .form-content {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .half-width{
+    margin-right: 40px;
+  }
+  
+  .form-row {
+    display: flex;
+    justify-content: space-between
+  }

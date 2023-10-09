@@ -1,0 +1,14 @@
+<div *ngFor="let groupEl of groups">
+<app-list-item
+    *ngIf="groupEl.creator === me?.id"
+      [groups]="groupEl"
+></app-list-item>
+</div>
+<hr>
+ <p>Egyéb csoportok</p>
+<div *ngFor="let groupEl of groups">
+    <app-list-item
+        *ngIf="groupEl.creator !== me?.id"
+          [groups]="groupEl"
+    ></app-list-item>
+    </div>

@@ -9,9 +9,14 @@
                     <mat-icon>menu</mat-icon>
                 </button>
             </div>
-            <div *ngIf="loggedInUser" routerLink="/main"><button>Friends Website</button></div>
+            <div *ngIf="loggedInUser" routerLink="/main"><button mat-raised-button>Friends Website</button></div>
             <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
                 <ul fxLayout fxLayoutGap="10px" class="navigation-items">
+                    <li *ngIf="loggedInUser"><a><mat-icon [matMenuTriggerFor]="menu" matBadge="0" matBadgeColor="warn">notifications</mat-icon></a></li>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item>Item 1</button>
+                            <button mat-menu-item>Item 2</button>
+                        </mat-menu>
                     <li *ngIf="loggedInUser"><a  routerLink="/groups">Groups</a></li>
                     <li *ngIf="loggedInUser"><a  routerLink="/main">Main</a></li>
                     <li *ngIf="loggedInUser"><a  routerLink="/profile">Profile</a></li>

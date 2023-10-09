@@ -19,13 +19,17 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { AngularFireModule} from '@angular/fire/compat';
 import { HttpClientModule } from '@angular/common/http';
-import { GroupsComponent } from './pages/groups/groups.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatMenuModule } from '@angular/material/menu';
+
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
-    GroupsComponent,
   ],
   imports: [
     HttpClientModule,
@@ -38,6 +42,9 @@ import { GroupsComponent } from './pages/groups/groups.component';
     MatIconModule,
     FlexLayoutModule,
     MatListModule,
+    MatDialogModule,
+    MatBadgeModule,
+    MatMenuModule,
     AngularFireModule.initializeApp(environment.firebase),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),

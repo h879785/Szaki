@@ -14,6 +14,7 @@ export class ChatComponent implements OnInit{
   me?: User;
   friends?: Array<User> =[];
   chosenFriend?: User;
+  
 
   
   constructor(

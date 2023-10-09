@@ -21,7 +21,7 @@ export class SignupComponent implements OnInit{
       lastname:   new FormControl(),
     }),
     birthdate: new FormControl(),
-    gender:   new FormControl(),
+    gender:   new FormControl('female'),
 
   })
 
@@ -33,7 +33,7 @@ export class SignupComponent implements OnInit{
   errormessage?: String;
   pw?:String;
   minDate = new Date(1900, 0, 1);
-  maxDate = new Date(2023,12,31);
+  maxDate = new Date();
   
   onSubmit(){
     this.authService.signup(this.SignUpForm.get('email')?.value,this.SignUpForm.get('password')?.value).then(cred=>{
