@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Post } from 'src/app/shared/models/Post';
 import { User } from 'src/app/shared/models/User';
 import { Image } from 'src/app/shared/models/Image';
@@ -19,6 +19,7 @@ export class PostlistComponent implements OnInit {
 
   me?:User; 
   post?:Post;
+  profilePic?: Image;
 
   isupdate: boolean = false;
   newcommentid?: string;
@@ -33,9 +34,7 @@ export class PostlistComponent implements OnInit {
   likeC?: Array<string>=[];
   comments?: Array<string>=[];
   commentList?: Array<Comment>=[];
-  malePP?: Image;
-  femalePP?: Image;
-  nbPP?: Image;
+
   commentCreator?: Array<User>=[];
 
 
@@ -59,7 +58,6 @@ export class PostlistComponent implements OnInit {
   ngOnInit(): void {
     this.postService.getAllPost().subscribe(allpost => {
       this.allposts = allpost
-      console.log(this.allposts)
     })
     this.userService.getAll().subscribe(user =>{
       this.alluser= user;
@@ -73,24 +71,17 @@ export class PostlistComponent implements OnInit {
     
     this.userService.getById(user.uid)?.subscribe(user =>{
       this.me= user;
+      this.profPic();
     })
+    
     this.commentService.getAllComment().subscribe(comments =>{
       this.commentList = comments
     })
-      this.imageService.loadImage("images/default_boy.png").subscribe(image=>{
-        this.malePP=image;
-      })
-      this.imageService.loadImage("images/default_girl.png").subscribe(image=>{
-        this.femalePP=image;
-      })
-      this.imageService.loadImage("images/universe.png").subscribe(image=>{
-        this.nbPP=image;
-      })
+
       if(this.commentList?.length)
       for(let i=0;i<this.commentList?.length;i++){
         this.commentCreators(this.commentList[i])      
       }
-
   }
 
   commentCreators(comment: Comment){
@@ -110,35 +101,12 @@ export class PostlistComponent implements OnInit {
     this.isucpid=postid
   }
 
-  addComment(id: string){
-      this.newcommentid = this.afs.createId();
-
-      const comment: Comment ={
-        id: this.newcommentid,
-        postid: id,
-        from: this.me?.id, 
-        comment :  this.commentForm.get("comment")?.value as string,
-        date: new Date().getTime(),
-        like: [],
-      }
-      this.commentService.createComment(comment).then(_=> {
-      }).catch(error => {
-        console.error(error);
-      });
-      this.comments?.push(this.newcommentid)
-      if(this.comments){
-      this.postService.addComment(id,this.comments)
-      this.addcomment = false;
-      }
-  }
-
-
-  addLike(userid :string,post: Post){
-    this.like = post.like
-    if(post.like?.indexOf(userid)===-1 && this.like ){
-      this.like?.push(userid);
-      this.postService.addLike(post.id,this.like); 
-  }
+  profPic(){
+    if(this.me && this.me.image)
+      this.imageService.loadImage(this.me?.image).subscribe(image=>{
+         this.profilePic=image;
+         console.log(this.profilePic)
+         })
   }
 
   addLikeC(userid :string,comment: Comment){
@@ -206,4 +174,5 @@ export class PostlistComponent implements OnInit {
     this.postService.update(this.updatePost)
     this.isupdate=false;
   }
+
 }

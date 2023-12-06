@@ -12,6 +12,8 @@ import { LoadingService } from '../../shared/services/loading.service';
 })
 export class LoginComponent implements OnInit,OnDestroy{
   
+  captcha: string = ""
+  captchaSucceeded: boolean= false;
   email = new FormControl()
   password= new FormControl()
 
@@ -26,13 +28,17 @@ export class LoginComponent implements OnInit,OnDestroy{
   ngOnInit(): void {
   }
 
+  resolved(captcha: string){
+    this.captcha = captcha;
+    this.captchaSucceeded = true;
+  }
+
   async login() {
       this.loading=true;
       this.authService.login(this.email.value, this.password.value).then(cred => {
         this.router.navigateByUrl('/main');
         this.loading = false;
       }).catch(error => {
-        console.error(error);
         this.errormessage='Hibás felhasználónév vagy jelszó!';
         this.loading = false;
       });

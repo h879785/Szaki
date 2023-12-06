@@ -4,6 +4,19 @@
     text-align: center;
 }
 
-.settings {
-    float: right
+
+.mat-drawer-content{
+    padding: 10px;
 }
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .settings {
+    align-self: flex-end;
+  }

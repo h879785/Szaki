@@ -1,32 +1,23 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { User } from 'src/app/shared/models/User';
+import { ImageService } from 'src/app/shared/services/image.service';
 
 @Component({
   selector: 'app-friendprofiles',
   templateUrl: './friendprofiles.component.html',
   styleUrls: ['./friendprofiles.component.scss']
 })
-export class FriendprofilesComponent implements OnInit,OnChanges{
-
+export class FriendprofilesComponent implements OnInit{
+  @Input() me?: User;
   @Input() friendsInput?: Array<User>;
-  @Output() friendObjectEmitter: EventEmitter<User>=new EventEmitter();
+  @Input() myprofilePic?: any
   chosenFriend?: User;
+  searchtext: any = "";
 
   constructor(
   ){
   }
-  ngOnChanges() {
-      if (this.friendsInput) {
-        this.chosenFriend = this.friendsInput[0];
-      }
-  }
-
 
   ngOnInit() {
-  }
-
-  friendUser(friend: User){
-    this.chosenFriend=friend
-    this.friendObjectEmitter.emit(this.chosenFriend);
   }
 }

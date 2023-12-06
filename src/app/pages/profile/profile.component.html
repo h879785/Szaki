@@ -1,16 +1,26 @@
-<mat-card fxLayout fxLayoutGap="20px" *ngIf="me">
-        <span fxFlex="1 1">
-            <mat-card-content>
-              <div class="image" *ngIf="me.gender==='male'" ><img class="profile_pic" [src]="malePP" ></div>
-              <div class="image" *ngIf="me.gender==='female'" ><img class="profile_pic" [src]="femalePP" ></div>
-              <div class="image" *ngIf="me.gender==='nonbinary'" ><img class="profile_pic" [src]="nbPP" ></div>  
-                   <div>{{me.name?.firstname}} {{me.name?.lastname}}</div>
-                <div>{{me.friends?.length}} ismerős</div>
-            </mat-card-content>
-        </span>
-</mat-card>
+<app-banner 
+[me]="me"
+[selectedUser]="selectedUser"
+[profilePic]="profilePic"
+></app-banner>
 
-<div class="profile_content" *ngIf="me">
+<div class="container" fxLayout="row" fxLayout.lt-md="column">
+  <div class="friendlist">
+    <app-data [me]="me" [selectedUser]="selectedUser"></app-data> 
+   </div>
+
+  <div class="div-card"  *ngIf="selectedUser; else meData">
+    <app-post-list *ngFor="let post of selectedUserPosts" [selectedUser]="selectedUser" [profilePic]="profilePic"></app-post-list>
+  </div>
+</div>
+
+<ng-template #meData>
+  <app-post-list *ngFor="let post of myPosts" [post]="post"[me]="me" [profilePic]="profilePic"></app-post-list>
+</ng-template>
+
+
+
+<!--<div class="profile_content" *ngIf="me">
       <div class="update_profile">
         <div>Adataim</div>
           <div class="div_button">
@@ -116,7 +126,7 @@
                   <button mat-icon-button >
                     <mat-icon>edit</mat-icon>
                   </button>
-                  <p *ngIf="mypost.date">{{mypost.date | datepipe}}</p>
+                  <p *ngIf="mypost.date">{{mypost.date}}</p>
                 </mat-card-actions>
                 <mat-form-field appearance="fill" *ngIf="newcomment===true">
                   <form (ngSubmit)="addComment(mypost.id)">
@@ -132,5 +142,4 @@
     <div class="non_post" *ngIf="myposts.length===0">
       Még nincsenek bejegyzéseid
       </div>
-</div>
-   
+    </div> -->

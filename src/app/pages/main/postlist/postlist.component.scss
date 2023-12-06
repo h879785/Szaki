@@ -5,10 +5,15 @@
     text-align: center;
     height: 100%;
     margin: auto;
-    width: 392px;
+    max-width: 500px;
 
 }
-  
+
+.friendlist{
+    padding: 50px;
+    padding-left: 50px;
+    max-width: 400px;
+}
 
 .main_component {
     height: 100vh;
@@ -44,8 +49,8 @@ button {
 }
 
 .mat-card {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 50px;
+    margin-bottom: 50px;
   }
 
   .mat-card-header{

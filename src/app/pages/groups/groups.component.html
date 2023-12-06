@@ -1,5 +1,5 @@
     <mat-drawer-container class="example-container" autosize>
-        <mat-drawer #drawer class="example-sidenav" mode="side">
+        <mat-drawer #drawer mode="side">
             <h2>Csoportok kezelése</h2>
             <mat-card>
                 <p>Hozz létre új csoportot </p>
@@ -9,71 +9,19 @@
             </mat-card>
             <h4>Saját csoportjaid</h4>
             <mat-card *ngIf="groups && me " fxLayout="column" fxLayoutGap="20px">
-                <!-- <ng-container *ngFor="let group of groups">
-                    <div *ngIf="group.creator && group.creator === me.id">
-                      <button mat-button color="warn" (click)="groupPicker(group)">
-                        <mat-card>
-                          <mat-card-title>{{group.name}}</mat-card-title>
-                        </mat-card>
-                      </button>
-                    </div>
-                  </ng-container> -->
                   <app-list></app-list>
                   
             </mat-card>
         </mat-drawer>
       
-        <mat-drawer-content>
-          <div class="settings">
-            <button type="button" mat-icon-button (click)="drawer.toggle()"><mat-icon>settings</mat-icon></button>
-          </div>
+         <mat-drawer-content>
           <mat-card fxLayout="column" fxLayoutGap="20px">
-            <router-outlet></router-outlet>
-            <!-- <ng-container >
-                <div *ngIf="pickedGroup">
-                    <mat-card>
-                      <mat-card-title>{{pickedGroup.name}}</mat-card-title>
-                      <mat-card-content>
-                        <p>{{pickedGroup.createdate}}</p>
-                        <p>{{pickedGroup.id}}</p>
-                        <mat-chip-listbox *ngFor="let member of pickedGroup.members">
-                          <mat-chip *ngIf="member.gender==='male'" >
-                            <img matChipAvatar [src]="malePP" alt="Profile Picture"/>
-                            {{member.name?.firstname}} {{member.name?.lastname}}
-                          </mat-chip>
-                          <mat-chip *ngIf="member.gender==='female'" >
-                            <img matChipAvatar [src]="malePP" alt="Profile Picture"/>
-                            {{member.name?.firstname}} {{member.name?.lastname}}
-                          </mat-chip>
-                          <mat-chip *ngIf="member.gender==='nonbinary'" >
-                            <img matChipAvatar [src]="malePP" alt="Profile Picture"/>
-                            {{member.name?.firstname}} {{member.name?.lastname}}
-                          </mat-chip>
-                        </mat-chip-listbox>
-
-                      </mat-card-content>
-                      
-                    </mat-card>
-                </div>
-              </ng-container> -->
-        </mat-card>
-        <mat-card>
-          <!-- <div class="div-card">
-            <mat-card fxLayout fxLayoutGap="20px">
-                <span>
-        
-                    <mat-card-content class="post_content" *ngIf="pickedGroup">
-                        <form  class="form" [formGroup]="grouppostForm" (ngSubmit)="addGroupPost(pickedGroup)">
-                            <mat-form-field>
-                                <mat-label for="post">Oszd meg mi jár a fejedben! </mat-label>
-                                <textarea matInput rows="3" cols="20" formControlName="post"></textarea>
-                            </mat-form-field>
-                            <button mat-raised-button color="primary" type="submit">Közzététel</button>
-                    </form>
-                    </mat-card-content>
-                </span>
-            </mat-card>
-        </div> -->
-        </mat-card>
-        </mat-drawer-content>
-      </mat-drawer-container>
+            <div class="settings">
+              <button type="button" mat-icon-button (click)="drawer.toggle()"><mat-icon>settings</mat-icon></button>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="center center">
+              <router-outlet></router-outlet>
+            </div>
+        </mat-card>   
+        </mat-drawer-content> 
+</mat-drawer-container>

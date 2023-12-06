@@ -1,0 +1,66 @@
+<mat-card class="example-card">
+    <mat-card-header *ngIf="post && post.date !== undefined && post.creator">
+      <img mat-card-avatar class="example-header-image" [src]="profilePic">
+      <mat-card-title *ngIf="me">{{me.name?.firstname}} {{me.name?.lastname}}</mat-card-title>
+      <mat-card-title *ngIf="selectedUser">{{selectedUser.name?.firstname}} {{selectedUser.name?.lastname}}</mat-card-title>
+      <mat-card-subtitle>{{post.date | datepipe}}</mat-card-subtitle>
+      </mat-card-header>
+    <mat-card-content>
+      <p>
+       {{post?.post}}
+      </p>
+    </mat-card-content>
+     <img mat-card-image *ngIf="postImage" [src]="postImage">
+    
+     <mat-card-actions *ngIf="post">
+      <button mat-icon-button [color]="isLikedByMe(post) ? 'primary' : ''" (click)="toggleLike(post)">
+        <span style="display: inline-flex; align-items: center;">
+          <span style="font-size: 15px; margin-right: 5px;">{{post.like && post.like.length}}</span>
+          <mat-icon style="vertical-align: middle;">thumb_up</mat-icon>
+        </span>
+      </button>
+        <button mat-icon-button [color]="isShowComments ? 'primary' : ''" (click)="findComments(post)">
+          <span style="display: inline-flex; align-items: center;">
+            <span style="font-size: 15px; margin-right: 5px;" *ngIf="post.comments && post.comments.length">{{post.comments.length}}</span> 
+            <mat-icon style="vertical-align: middle;">chat_bubble</mat-icon> 
+          </span>
+        </button>
+        <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="!selectedUser">
+          <mat-icon style="vertical-align: middle;">more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+              <mat-icon>edit</mat-icon>
+              <span>Szerkesztés</span>
+            </button>
+          <button mat-menu-item (click)="deletePost(post)">
+            <mat-icon>delete</mat-icon>
+            <span>Törlés</span>
+          </button>
+        </mat-menu>
+      </mat-card-actions>
+      <div *ngIf="isShowComments && post">
+  
+        <mat-card *ngIf="me">
+          <mat-card-header>
+              <img mat-card-avatar class="header-image" [src]="profilePic">
+              <mat-card-title style="font-size: 15px;"> {{me.name?.firstname}} {{me.name?.lastname}}</mat-card-title>
+              <mat-card-content>
+                <form  class="form" [formGroup]="commentForm">
+                <mat-form-field class="input">
+                    <mat-label for="post">Oszd meg mi jár a fejedben! </mat-label>
+                    <input matInput type="text" formControlName="comment">
+                    <button mat-raised-button color="primary" style="font-size: 15px;" (click)="addComment(post.id)" [disabled]="commentForm.invalid">Közzététel</button>
+                </mat-form-field> 
+            </form>
+            </mat-card-content>
+          </mat-card-header> 
+      </mat-card>
+        <!-- <app-post-comments
+        *ngFor="let comment of postComments"
+        [comments]="comment"
+        [commenter]="findCommentUser(comment)"
+        ></app-post-comments>  -->
+        </div>
+  </mat-card>
+  

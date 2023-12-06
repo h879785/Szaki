@@ -1,21 +1,22 @@
 <div class="messager">
-    <div class="chat_name" *ngIf="chosenFriend">
-        <span>{{chosenFriend.name?.firstname}} {{chosenFriend.name?.lastname}}</span>
-    </div>
+    <mat-card class="friend_card" *ngIf="chosenFriend">
+        <mat-card-header>
+            <img mat-card-avatar class="header-image" [src]="friendprofilePic">
+            <mat-card-title> {{chosenFriend.name?.firstname}} {{chosenFriend.name?.lastname}}</mat-card-title>
+        </mat-card-header>
+        </mat-card>
     <div class="chat_name" *ngIf="!chosenFriend">
         <span>Válaszd ki a beszélgető partnered!</span>
     </div>
         <div class="screen" >
-        <div class="message_container" >
-            <div class="message" *ngFor="let friendmess of chatWithFriend; let i = index;">
-                <div class="message_left" *ngIf="this.me?.id && friendmess.to===this.me?.id">
-                    <span class="message_content" >{{friendmess.message}}</span>
-                </div>
-            </div>
-            <div class="message" *ngFor="let mess of myChats; let i = index; ">
-                <div class="message_right">
-                    <span class="message_content" *ngIf="mess.to===this.chosenFriend?.id">{{mess.message}}</span>
-                </div>
+        <div class="message_container">
+            <div class="message" *ngFor="let mess of friendChat">
+                    <div class="message" [ngClass]="{'message_right': mess.from === me?.id, 'message_left': mess.from !== me?.id}">
+                      <div (click)="showDate ? showDate = false:showDate = true">
+                        <span class="message_content" *ngIf="mess.date && !showDate">{{mess.date | datepipe}}</span>
+                        <span class="message_content">{{mess.message}}</span>
+                      </div>
+                    </div>
             </div>
         </div>
     </div>
@@ -23,7 +24,7 @@
         <form [formGroup]="messageForm" (ngSubmit)="addMessage()">
         <input matInput type="text" formControlName="message"/>
             <span class="button">
-                <button mat-raised-button color="primary" type="submit">
+                <button [disabled]="!messageForm.valid" mat-raised-button color="primary" type="submit">
                     <mat-icon>send</mat-icon>
                 </button>
             </span>

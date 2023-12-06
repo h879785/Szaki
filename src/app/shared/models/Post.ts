@@ -5,4 +5,5 @@ export interface Post{
     date?: number;
     like?: string[];
     comments?: string[];
+    image?: string;
 }

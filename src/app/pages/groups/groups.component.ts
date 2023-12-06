@@ -64,28 +64,6 @@ export class GroupsComponent implements OnInit,OnDestroy{
     return formGroup
   }
 
-  addGroupPost(pickedGroup: Groups){
-    if(this.grouppostForm.valid){
-      if(this.grouppostForm.get('creator') && this.grouppostForm.get('post')!==null){
-
-        const newgrouppost: GroupPost = {
-          id: '',
-          creator: this.me?.id,
-          post: this.grouppostForm.get("post")?.value as string,
-          date: new Date().getTime(),
-          like: [],
-          groupid: pickedGroup.id,
-          comments: [],
-        };
-
-        this.groupPostService.createPost(newgrouppost).then(_ => {
-          console.log(newgrouppost)
-        }).catch(error => {
-          console.error(error);
-        });
-      }
-    }
-  }
 
   openNewGroup(){
     this.MatDialog.open(DialogComponent,{

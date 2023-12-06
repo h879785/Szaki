@@ -37,9 +37,8 @@ export class SignupComponent implements OnInit{
   
   onSubmit(){
     this.authService.signup(this.SignUpForm.get('email')?.value,this.SignUpForm.get('password')?.value).then(cred=>{
-    
       const user : User = {
-        id: cred.user?.uid as string,
+        id: cred.user?.uid as string || '',
         email: this.SignUpForm.get('email')?.value as string,
         name: {
           firstname: this.SignUpForm.get('name.firstname')?.value as string,
@@ -48,13 +47,15 @@ export class SignupComponent implements OnInit{
         birthdate: this.SignUpForm.get('birthdate')?.value as Date,
         gender: this.SignUpForm.get('gender')?.value as string,
         friends: [],
+        image: 'default.jpg'
       };
-
+    
       if (!user.email || !user?.name?.firstname || !user.name.lastname || !user.birthdate || !user.gender) {
         this.errormessage='Hiányzó adatok! Kérjük figyelmesen töltsön ki minden mezőt!';
       }
       else{
       this.userService.create(user).then(_=>{
+        cred.user?.sendEmailVerification();
         this.router.navigateByUrl('/login');
         this.errormessage='Sikeresen hozzáadva';
       }).catch(error=>{
@@ -63,6 +64,7 @@ export class SignupComponent implements OnInit{
     }).catch(error=>{
       this.errormessage='Hiányzó adatok! Kérjük figyelmesen töltsön ki minden mezőt!';
     });
+  
   }
 
   goBack(){

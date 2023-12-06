@@ -18,6 +18,8 @@ export class ListDetailComponent implements OnInit{
   message: string = "";
   groupPost: GroupPost[] = [];
   members: User [] = [];
+  me?: User;
+  imagePath = "https://upload.wikimedia.org/wikipedia/commons/a/ab/Wallpaper_group-p4m-5.jpg";
 
   grouppostForm = this.newGroupPost({
     id: "",
@@ -67,5 +69,28 @@ export class ListDetailComponent implements OnInit{
     formGroup.get('creator')?.addValidators([Validators.required]);
     formGroup.get('post')?.addValidators([Validators.required, Validators.minLength(5)]);
     return formGroup
+  }
+
+  addGroupPost(pickedGroup: Groups){
+    if(this.grouppostForm.valid){
+      if(this.grouppostForm.get('creator') && this.grouppostForm.get('post')!==null){
+
+        const newgrouppost: GroupPost = {
+          id: '',
+          creator: this.me?.id,
+          post: this.grouppostForm.get("post")?.value as string,
+          date: new Date().getTime(),
+          like: [],
+          groupid: pickedGroup.id,
+          comments: [],
+        };
+
+        this.groupPostService.createPost(newgrouppost).then(_ => {
+          console.log(newgrouppost)
+        }).catch(error => {
+          console.error(error);
+        });
+      }
+    }
   }
 }

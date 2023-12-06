@@ -1,24 +1,16 @@
-<div>Kit ismerhetek
-    <div class="main" *ngIf="users && me" >
-        <div class="friends_card" *ngFor="let user of users; let i = index;" fxLayout="column" fxLayoutGap="20px">
-            <mat-card>
-                <span *ngIf="me.friends && user.id && indexOf(user.id) && user.id!==me.id">
-                    <mat-card-header>
-                        <div class="image" *ngIf="user.gender==='male'" ><img class="profile_pic" [src]="malePP" ></div>
-                        <div class="image" *ngIf="user.gender==='female'" ><img class="profile_pic" [src]="femalePP" ></div>
-                        <div class="image" *ngIf="user.gender==='nonbinary'" ><img class="profile_pic" [src]="nbPP" ></div>            
-                        <mat-card-title>{{user.name?.firstname}} {{user.name?.lastname}}</mat-card-title>
-                    </mat-card-header>
-                    <form (ngSubmit)="addFriend(user.id)">
-                    <mat-card-content>
-                        <div>{{user.friends?.length}} Ismerős</div>
-                        <button mat-raised-button color="primary" type="submit">
-                            <mat-icon>check</mat-icon>
-                        </button>
-                    </mat-card-content>
-                </form>
-                </span>
-            </mat-card>
-        </div>
-    </div>
+<mat-card class="search-card">
+    <mat-card-header>
+        Kit ismerhetek?
+    </mat-card-header>
+    <mat-form-field class="search-bar">
+      <input matInput type="text" [(ngModel)]="searchtext" placeholder="Keresés a felhasználók között..." >
+  </mat-form-field>
+  </mat-card>
+<div class="card-container">
+<app-friendlist-item
+*ngFor="let user of users| searchFilter: searchtext"
+[user] = "user"
+[me]="me"
+>
+</app-friendlist-item>
 </div>

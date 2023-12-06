@@ -1,0 +1,18 @@
+<mat-card class="example-card" *ngIf="friend"
+style="cursor: pointer;"
+[routerLink]="[friend.id]"
+routerLinkActive="active">
+    <mat-card-header>
+        <img mat-card-avatar class="header-image" [src]="profilePic">
+        <mat-card-title>{{friend.name?.firstname}} {{friend.name?.lastname}}</mat-card-title>
+        <mat-card-subtitle *ngIf="friendChat && friendChat.length && friendChat[friendChat.length-1].from ===me?.id">Én: {{ friendChat[friendChat.length-1].message | text}}</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="friendChat && friendChat.length && friendChat[friendChat.length-1].from ===friend?.id">{{friend.name?.firstname}}: {{friendChat[friendChat.length-1].message | text}}</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="friendChat && !friendChat.length ">Kezdd el a csevegést</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions align="end">
+        <button style="cursor: pointer; background: none;   border: none;"><mat-icon>keyboard_arrow_right</mat-icon></button>
+    </mat-card-actions>
+  </mat-card>
+  <div *ngIf="!friend">
+    Jelenleg nincsenek barátok a barátlistádon
+  </div>

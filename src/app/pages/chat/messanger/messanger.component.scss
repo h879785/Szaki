@@ -1,28 +1,34 @@
-.send {
-    position: relative;
-    width: 600px;
-    margin: auto;
-    border-radius: 10px;
-  }
-
+.friend_card{
+  width: 100vh;
+  margin-top: 10px;
+}
   .messager{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 110vh;
+    height: 100vh;
+    margin: auto;
+    overflow: hidden;
   }
+
+.send {
+    position: relative;
+    width: 100vh;
+    margin: auto;
+    border-radius: 10px;
+  }
+
   .screen {
-    width: 600px;
-    height: 450px;
-    margin-top: 10px;
-    margin-left: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    background-color: #f5f5f5;
+    width: 100vh;
+    height: 80vh;
+    background-color: white;
     border: 1px solid #ddd;
     border-radius: 10px;
-    overflow: hidden;
+    overflow-y: auto;
     display: flex;
+    margin: 0;
   }
   
 .send .button {
@@ -36,18 +42,9 @@
   .message {
     display: flex;
     align-items: center;
-    margin: 10px 0;
+    margin: 5px 0;
   }
 
-  .chat_name{
-    background-color: #5b5656;
-    border-radius: 20px;
-    color: #ddd;
-    margin-top: 5px;
-    padding: 5px;
-  }
-  
-  
   .message .message_content {
     background-color: #f1f0f0;
     padding: 10px;
@@ -55,18 +52,12 @@
     max-width: 60%;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
   }
-  
-  /* Az üzenetek jobboldali stílusa */
-  .message_right {
-    justify-content: flex-end;
-    flex-grow: 1;
-  }
+
+
   .message_container{
       display: block;
-      width: 590px;
-      height: 430px;
-      margin: auto;
-      overflow-y: scroll;
+      width: 100vh;
+      max-height: 80vh;
   }
   
   .message_right .message_content {
@@ -75,9 +66,7 @@
     order: 1;
     float: right
   }
-  .message_left{
-    flex-grow: 1;
-  }
+
   
   .message_left .message_content {
     background-color: #f1f0f0;
@@ -91,7 +80,7 @@
   .message {
   display: flex;
   align-items: flex-start;
-  margin: 10px 0;
+  margin: 10px;
   flex-direction: row;
 }
 
@@ -103,7 +92,6 @@
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-/* Az üzenetek jobboldali stílusa */
 .message_right {
   justify-content: flex-end;
   align-items: flex-end;

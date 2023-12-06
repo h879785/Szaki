@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, finalize } from 'rxjs';
 import { Image } from '../models/Image';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
@@ -22,6 +22,20 @@ export class ImageService {
   
     loadImage(imageUrl: string) {
       return this.storage.ref(imageUrl).getDownloadURL();
-
   }
+
+  uploadPostPic(file: File){
+    const filePath = `post/${file.name}`;
+    return this.storage.upload(filePath, file);
+  }
+
+  uploadProfilePic(file: File){
+    const filePath = `profilepic/${file.name}`;
+    return this.storage.upload(filePath, file);
+  }
+  uploadGroupPic(file: File){
+    const filePath = `group/${file.name}`;
+    return this.storage.upload(filePath, file);
+  }
+
 }

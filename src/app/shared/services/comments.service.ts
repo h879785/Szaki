@@ -24,7 +24,7 @@ export class CommentService {
    }
 
   getAllCommentWID(postId: string){
-    return this.afs.collection<Comment>(this.collectionName, ref => ref.where('creator', '==', postId).orderBy('date', 'desc')).valueChanges();
+    return this.afs.collection<Comment>(this.collectionName, ref => ref.where('postid', '==', postId).orderBy('date', 'desc')).valueChanges();
   }
 
   update(comment: Comment) {

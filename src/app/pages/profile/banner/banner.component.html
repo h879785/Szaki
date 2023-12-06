@@ -1,0 +1,27 @@
+<div *ngIf="me">
+<ng-container *ngIf="selectedUser; else meData">
+  <mat-card class="profile-card">
+    <mat-card-header>
+      <img mat-card-sm-image [src]="profilePic">
+      <mat-card-title-group>
+        <mat-card-title>{{ selectedUser.name?.firstname }}</mat-card-title>
+        <mat-card-title>{{ selectedUser.name?.lastname }}</mat-card-title>
+        <mat-card-subtitle>Ismerősök {{ selectedUser.friends?.length }}</mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+  </mat-card>
+</ng-container>
+</div>
+
+<ng-template #meData>
+  <mat-card class="profile-card">
+    <mat-card-header>
+      <img mat-card-sm-image [src]="profilePic">
+      <mat-card-title-group>
+        <mat-card-title>{{ me?.name?.firstname }}</mat-card-title>
+        <mat-card-title>{{ me?.name?.lastname }}</mat-card-title>
+        <mat-card-subtitle>Ismerősök {{ me?.friends?.length }}</mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+  </mat-card>
+</ng-template>

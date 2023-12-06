@@ -1,5 +1,6 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Image } from 'src/app/shared/models/Image';
 import { Post } from 'src/app/shared/models/Post';
@@ -7,6 +8,28 @@ import { User } from 'src/app/shared/models/User';
 import { ImageService } from 'src/app/shared/services/image.service';
 import { PostService } from 'src/app/shared/services/post.service';
 import { UserService } from 'src/app/shared/services/user.service';
+import { PostCreatorComponent } from './post-creator/post-creator.component';
+
+function base64toBlob(base64Data: string, contentType:string) {
+  contentType = contentType || '';
+  const sliceSize = 1024;
+  const byteCharacters = window.atob(base64Data);
+  const bytesLength = byteCharacters.length;
+  const slicesCount = Math.ceil(bytesLength / sliceSize);
+  const byteArrays = new Array(slicesCount);
+
+  for (let sliceIndex = 0; sliceIndex < slicesCount; ++sliceIndex) {
+    const begin = sliceIndex * sliceSize;
+    const end = Math.min(begin + sliceSize, bytesLength);
+
+    const bytes = new Array(end - begin);
+    for (let offset = begin, i = 0; offset < end; ++i, ++offset) {
+      bytes[i] = byteCharacters[offset].charCodeAt(0);
+    }
+    byteArrays[sliceIndex] = new Uint8Array(bytes);
+  }
+  return new Blob(byteArrays, { type: contentType });
+}
 
 
 @Component({
@@ -14,90 +37,29 @@ import { UserService } from 'src/app/shared/services/user.service';
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss']
 })
-export class PostComponent implements OnInit,OnChanges {
+export class PostComponent implements OnInit {
 
-  user?:User;
-  post?:Post;
-  defaultPP?: Image;
-  malePP?: Image;
-  femalePP?: Image;
-  nbPP?: Image;
-  
-  postForm = this.newPost({
-    id: "",
-    creator: "",
-    post: "",
-    date: 0
-    });
+  @Input() me?: User | undefined;
+  @Input() profilePic?: Image;
 
   constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private userService: UserService,
-    private postService: PostService,
-    private imageService: ImageService
+    public dialog: MatDialog
   ) {}
 
 
   ngOnInit(): void {
-    const user = JSON.parse(localStorage.getItem('user') as string) as firebase.default.User;
-    this.userService.getById(user.uid).subscribe(data => {
-      this.user = data;
-      this.postForm.get('creator')?.setValue(this.user?.id);
-    }, error => {
-      console.error(error);
-    });
-
-      this.imageService.loadImage("images/default_boy.png").subscribe(image=>{
-        this.malePP=image;
-      })
-      this.imageService.loadImage("images/default_girl.png").subscribe(image=>{
-        this.femalePP=image;
-      })
-      this.imageService.loadImage("images/universe.png").subscribe(image=>{
-        this.nbPP=image;
-      })
+  
     }
 
-  newPost(model: Post){
-    let formGroup = this.fb.group(model);
-    formGroup.get('creator')?.addValidators([Validators.required]);
-    formGroup.get('post')?.addValidators([Validators.required, Validators.minLength(5)]);
-    return formGroup
-  }
-
-  addPost(){
-    if(this.postForm.valid){
-      if(this.postForm.get('creator') && this.postForm.get('post')!==null){
-
-        const newpost: Post = {
-          id: '',
-          creator: this.user?.id,
-          post: this.postForm.get("post")?.value as string,
-          date: new Date().getTime(),
-          like: [],
-          comments: [],
-        };
-
-        this.postService.createPost(newpost).then(_ => {
-          console.log(this.postForm.value)
-        }).catch(error => {
-          console.error(error);
-        });
+  
+  openPostCreator(){
+    this.dialog.open(PostCreatorComponent,{
+      width:'50%',
+      height: '70%',
+      data: {
+        profilePic: this.profilePic,
+        me: this.me
       }
-    }
-  }
-  profilePic(user:User){
-    if(user.gender === "male"){
-      this.defaultPP = this.malePP
-    }else if (user.gender==="female"){
-      this.defaultPP = this.femalePP
-    } else{
-      this.defaultPP=this.nbPP
-    }
-
-  }
-
-  ngOnChanges(): void {
+     })
   }
 }

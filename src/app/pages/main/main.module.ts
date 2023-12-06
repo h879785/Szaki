@@ -14,27 +14,43 @@ import { PostlistComponent } from './postlist/postlist.component';
 import { MatIconModule } from '@angular/material/icon';
 import { DatepipePipe } from '../../shared/pipe/datepipe.pipe';
 import { FriendlistComponent } from './friendlist/friendlist.component';
+import { PostItemComponent } from './postlist/post-item/post-item.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { PostCommentsComponent } from './postlist/post-item/post-comments/post-comments.component';
+import { ImagePickerComponent } from 'src/app/shared/pickers/image-picker/image-picker.component';
+import { PostCreatorComponent } from './post/post-creator/post-creator.component';
+import { FriendlistItemComponent } from './friendlist/friendlist-item/friendlist-item.component';
+import { SharedModule } from "../../shared/shared.module";
+
 
 
 @NgModule({
-  declarations: [
-    MainComponent,
-    PostComponent,
-   // DatepipePipe,
-    PostlistComponent,
-   FriendlistComponent,
-  ],
-  imports: [
-    CommonModule,
-    MainRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatCardModule,
-    FlexLayoutModule,
-  ]
+    declarations: [
+        MainComponent,
+        PostComponent,
+        // DatepipePipe,
+        PostlistComponent,
+        FriendlistComponent,
+        PostItemComponent,
+        PostCreatorComponent,
+        PostCommentsComponent,
+        ImagePickerComponent,
+        PostCreatorComponent,
+        FriendlistItemComponent
+    ],
+    imports: [
+        CommonModule,
+        MainRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatCardModule,
+        FlexLayoutModule,
+        MatMenuModule,
+        SharedModule,
+    ]
 })
 export class MainModule { }

@@ -1,4 +1,10 @@
-<div class="main_component">
+<!-- <div class="main_component">
 <app-friendprofiles [friendsInput]="friends" (friendObjectEmitter)="loadChat($event)" class="friend_card"></app-friendprofiles>
 <app-messanger [chat]="chosenFriend" class="chat_card"></app-messanger>
-</div>
+</div> -->
+
+
+  <mat-drawer-container class="container">
+    <mat-drawer mode="side" opened> <app-friendprofiles [myprofilePic]="myprofilePic" [me]="me" [friendsInput]="friends"></app-friendprofiles></mat-drawer>
+    <mat-drawer-content><router-outlet></router-outlet></mat-drawer-content>
+  </mat-drawer-container>

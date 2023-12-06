@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Image } from '.././models/Image';
 import { AngularFireStorage } from '@angular/fire/compat/storage'
 import { Post } from '../models/Post';
@@ -11,7 +11,8 @@ import { Post } from '../models/Post';
   providedIn: 'root'
 })
 export class PostService {
-
+  private _postsSubject = new BehaviorSubject<Post[]>([]);
+  public posts$ = this._postsSubject.asObservable();
   collectionName= "Posts";
 
   constructor(
@@ -20,21 +21,54 @@ export class PostService {
     private storage: AngularFireStorage,
   ) { }
 
-  createPost(post: Post){
+  // createPost(post: Post){
+  //   post.id = this.afs.createId();
+  //     return this.afs.collection<Post>(this.collectionName).doc(post.id).set(post);
+  // }
+
+  createPost(post: Post) {
     post.id = this.afs.createId();
-      return this.afs.collection<Post>(this.collectionName).doc(post.id).set(post);
+    return this.afs.collection<Post>(this.collectionName).doc(post.id).set(post)
+      .then(() => {
+        const currentPosts = this._postsSubject.getValue();
+        currentPosts.push(post);
+        this._postsSubject.next(currentPosts);
+      });
   }
 
   getAllPost(){
     return this.afs.collection<Post>(this.collectionName, ref => ref.orderBy('date', 'desc')).valueChanges();
   }
 
+  // update(post: Post) {
+  //   return this.afs.collection<Post>(this.collectionName).doc(post.id).set(post);
+  // }
+
   update(post: Post) {
-    return this.afs.collection<Post>(this.collectionName).doc(post.id).set(post);
+    return this.afs.collection<Post>(this.collectionName).doc(post.id).set(post)
+      .then(() => {
+        // Frissítjük a BehaviorSubject értékét a frissített adattal
+        const currentPosts = this._postsSubject.getValue();
+        const index = currentPosts.findIndex(p => p.id === post.id);
+        if (index !== -1) {
+          currentPosts[index] = post;
+          this._postsSubject.next(currentPosts);
+        }
+      });
   }
+  
+
+  // delete(id: string) {
+  //   return this.afs.collection<Post>(this.collectionName).doc(id).delete();
+  // }
 
   delete(id: string) {
-    return this.afs.collection<Post>(this.collectionName).doc(id).delete();
+    return this.afs.collection<Post>(this.collectionName).doc(id).delete()
+      .then(() => {
+        const currentPosts = this._postsSubject.getValue();
+        const updatedPosts = currentPosts.filter(post => post.id !== id);
+        this._postsSubject.next(updatedPosts);
+      });
   }
 
   getMyPosts(myid: string) {
@@ -45,13 +79,6 @@ export class PostService {
     return this.afs.collection<Post>(this.collectionName, ref => ref.where('id', '==', postid)).valueChanges();
   }
 
-  loadImageMeta(metaUrl: string): Observable<Array<Image>>{
-    return this.afs.collection<Image>(this.collectionName).valueChanges();
-  }
-
-  loadImage(imageUrl: string){
-    return this.storage.ref(imageUrl).getDownloadURL();
-  }
   addLike(postID: string,likes: Array<string>){
     const data: Partial<Post> = { like: likes };
     this.afs.collection<Post>(this.collectionName).doc(postID).update(data);

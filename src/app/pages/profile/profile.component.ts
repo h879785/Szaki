@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { User } from '../../shared/models/User';
 import { Image } from '../../shared/models/Image';
 import { UserService } from '../../shared/services/user.service';
@@ -13,13 +13,16 @@ import { PostService } from 'src/app/shared/services/post.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit,OnChanges {
-  
+export class ProfileComponent implements OnInit {
+    selectedUser?: User;
+    selectedUserId?: any;
+    selectedUserPosts?: Array<Post>;
+    myPosts?: Array<Post>;
     me?:User;
+    profilePic? :any;
     users: Array<User> = [];  
     friend: Array<string>=[];
     defaultPP?: Image;
-    myposts: Array<Post>=[];
     post?: Post;
     newcomment?: Boolean;
     isup?: Boolean;
@@ -40,6 +43,7 @@ export class ProfileComponent implements OnInit,OnChanges {
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private route: ActivatedRoute,
     private userService: UserService,
     private imageService: ImageService,
     private postService: PostService,
@@ -53,48 +57,60 @@ export class ProfileComponent implements OnInit,OnChanges {
 
     this.userService.getById(me.uid)?.subscribe(user =>{
       this.me= user;
+      if(this.me?.id){
+      this.postService.getMyPosts(this.me.id).subscribe(myposts=>{
+        this.myPosts = myposts;
+      })
+      }
+      if(this.me?.image)
+      this.imageService.loadImage(this.me?.image).subscribe(profpic=>{
+        this.profilePic = profpic;
+       })
     })
-    this.imageService.loadImage("images/default_boy.png").subscribe(image=>{
-      this.malePP=image;
-    })
-    this.imageService.loadImage("images/default_girl.png").subscribe(image=>{
-      this.femalePP=image;
-    })
-    this.imageService.loadImage("images/universe.png").subscribe(image=>{
-      this.nbPP=image;
-    })
-    this.postService.getMyPosts(me.uid)?.subscribe(mypost =>{
-      this.myposts = mypost;
-     })
+
+    this.route.params.subscribe((params: Params) => {
+      this.selectedUserId = params['id'];
+      console.log( params['id'])
+      if (typeof this.selectedUserId === 'string') {
+        this.userService.getById(this.selectedUserId).subscribe((user: User | undefined) => {
+          if (user && user.id) {
+            this.selectedUser = user;
+            this.postService.getMyPosts(user.id).subscribe(myposts=>{
+              this.selectedUserPosts = myposts;
+            })
+            if(this.selectedUser?.image)
+            this.imageService.loadImage(this.selectedUser.image).subscribe(profpic=>{
+              this.profilePic = profpic;
+             })
+          }
+        });
+      }
+  })
+}
 
 
-  }
   deletePost(id :string){
     this.postService.delete(id);
   }
   updateUser(){
-    const me = JSON.parse(localStorage.getItem('user') as string) as firebase.default.User;
-    this.userService.getById(me.uid)?.subscribe(user =>{
-      this.me= user;
-    })
-    const updatedUser: User=({
-      id: this.me?.id,
-      email: this.me?.email,
-      name: {
-          firstname: this.me?.name?.firstname,
-          lastname: this.me?.name?.lastname,
-      },
-      gender: this.me?.gender,
-      birthdate: this.me?.birthdate,
-      birthplace: this.me?.birthplace || this.birthplaceForm.get("birthplace")?.value as string ||'',
-      friends: this.me?.friends,
-      work: this.me?.work || this.workForm.get("work")?.value as string || '',
-      hobbies: '',
-    })
-   this.userService.update(updatedUser)
-   this.isup=false
-
+  //   const updatedMe: User=({
+  //     id: this.me?.id,
+  //     email: this.me?.email,
+  //     name: {
+  //         firstname: this.me?.name?.firstname,
+  //         lastname: this.me?.name?.lastname,
+  //     },
+  //     gender: this.me?.gender,
+  //     birthdate: this.me?.birthdate,
+  //     birthplace: this.me?.birthplace || this.birthplaceForm.get("birthplace")?.value as string ||'',
+  //     friends: this.me?.friends,
+  //     work: this.me?.work || this.workForm.get("work")?.value as string || '',
+  //     hobbies: '',
+  //   })
+  //  this.userService.update(updatedMe)
+  //  this.isup=false
   }
+  
   isUpdate(){
     if(this.isup){
       this.isup=false
@@ -160,8 +176,6 @@ export class ProfileComponent implements OnInit,OnChanges {
       return false;
     }
   }
-  ngOnChanges():void{
-      
-  }
+
 
 }

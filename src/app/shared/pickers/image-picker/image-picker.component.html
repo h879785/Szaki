@@ -1,0 +1,19 @@
+<div class="picker">
+    <img
+      role="button"
+      class="image"
+      (click)="onPickImage()"
+      [src]="selectedImage"
+      *ngIf="selectedImage && showPreview"
+    >
+    <button mat-raised-button color="primary" (click)="onPickImage()" *ngIf="!selectedImage || !showPreview">
+      <mat-icon name="camera" slot="start"></mat-icon>
+      <mat-label>Válassz egy képet</mat-label>
+    </button>
+  </div>
+  <input
+    type="file"
+    accept="image/jpeg"
+    #filePicker
+    (change)="onFileChosen($event)"
+  />

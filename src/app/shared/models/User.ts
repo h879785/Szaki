@@ -11,4 +11,5 @@ export interface User {
     friends?: string[];
     work?: string;
     hobbies?: string;
+    image?: string;
 }

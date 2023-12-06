@@ -13,12 +13,16 @@ import { ChatComponent } from './chat.component';
 import { FriendprofilesComponent } from './friendprofiles/friendprofiles.component';
 import { MessangerComponent } from './messanger/messanger.component';
 import { MatOptionModule } from '@angular/material/core';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { FriendcardComponent } from './friendprofile/friendcard/friendcard.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
     ChatComponent,
     FriendprofilesComponent,
     MessangerComponent,
+    FriendcardComponent,
   ],
   imports: [
     ChatRoutingModule,
@@ -32,6 +36,8 @@ import { MatOptionModule } from '@angular/material/core';
     FlexLayoutModule,
     MatCardModule,
     MatIconModule,
+    MatSidenavModule,
+    SharedModule
   ]
 })
 export class ChatModule { }

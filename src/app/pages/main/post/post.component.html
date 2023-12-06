@@ -1,16 +1,14 @@
-<div class="div-card" *ngIf="user">
+<div class="div-card" *ngIf="me">
     <mat-card fxLayout fxLayoutGap="20px">
         <span>
 
             <mat-card-content class="post_content">
-                <form  class="form" [formGroup]="postForm" (ngSubmit)="addPost()">
-                    <div class="image" *ngIf="defaultPP" ><img class="profile_pic" [src]="defaultPP" ></div>
-                    <mat-form-field>
-                        <mat-label for="post">Oszd meg mi jár a fejedben! </mat-label>
-                        <textarea matInput rows="3" cols="20" formControlName="post"></textarea>
-                    </mat-form-field>
-                    <button mat-raised-button color="primary" type="submit">Közzététel</button>
-            </form>
+                <mat-card-header>
+                <img mat-card-avatar class="header-image" [src]="profilePic">
+                    <button class="full_button" mat-raised-button (click)="openPostCreator()">
+                    Oszd meg mi jár a fejedben!
+                    </button>
+                </mat-card-header>
             </mat-card-content>
         </span>
     </mat-card>

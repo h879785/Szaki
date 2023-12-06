@@ -32,6 +32,7 @@ import { PostListComponent } from './list-detail/post-list/post-list.component';
     ListItemComponent,
     ListDetailComponent,
     PostListComponent,
+
   ],
   imports: [
     CommonModule,

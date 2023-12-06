@@ -1,0 +1,101 @@
+<mat-card *ngIf="me">
+    <mat-card-title>{{selectedUser ? 'Adatai' : 'Adataim'}}</mat-card-title>
+    <mat-card-content *ngIf="selectedUser; else meData">
+        <p>Jelenlegi munka/Iskola: {{selectedUser.work ? selectedUser.work : 'Nincs beállítva'}}</p>
+        <p>Születési hely: {{selectedUser.birthplace ? selectedUser.birthplace : 'Nincs beállítva'}}</p>
+        <p>Hobbik: {{selectedUser.hobbies ? selectedUser.hobbies : 'Nincs beállítva'}}</p>
+        <p [ngSwitch]="selectedUser.gender">
+          <ng-container *ngSwitchCase="'male'">Nem: Férfi</ng-container>
+          <ng-container *ngSwitchCase="'female'">Nem: Nő</ng-container>
+          <ng-container *ngSwitchCase="'nonbinary'">Nem: Nem bináris</ng-container>
+          <ng-container *ngSwitchDefault>Nem: Ismeretlen</ng-container>
+        </p>    
+    </mat-card-content>
+        <ng-template #meData>
+            <p>Jelenlegi munka/Iskola: {{me.work ? me.work : 'Nincs beállítva'}}</p>
+            <p>Születési hely: {{me.birthplace ? me.birthplace : 'Nincs beállítva'}}</p>
+            <p>Hobbik: {{me.hobbies ? me.hobbies : 'Nincs beállítva'}}</p>
+            <p [ngSwitch]="me.gender">
+                <ng-container *ngSwitchCase="'male'">Nem: Férfi</ng-container>
+                <ng-container *ngSwitchCase="'female'">Nem: Nő</ng-container>
+                <ng-container *ngSwitchCase="'nonbinary'">Nem: Nem bináris</ng-container>
+                <ng-container *ngSwitchDefault>Nem: Ismeretlen</ng-container>
+              </p> 
+            <button mat-button (click)="updateUser()">Szerkesztés</button>
+          </ng-template>
+</mat-card>
+<!-- 
+    <div>Adataim</div>
+          <div class="div_button">
+            <div *ngIf="me.work">Jelenlegi munka/Iskola: {{me.work}}
+              <button mat-raised-button class="checkbutton" color="primary" (click)="isUpdate()" type="submit">
+                  <mat-icon>create</mat-icon>
+              </button>
+                <mat-form-field *ngIf="isup" class="send">
+                  <form [formGroup]="workForm"(ngSubmit)="updateUser()">
+                  <input matInput type="text" formControlName="work"/>
+                      <span class="button">
+                          <button mat-raised-button color="primary" type="submit">
+                              <mat-icon>check</mat-icon>
+                          </button>
+                      </span>
+                  </form>
+              </mat-form-field>
+            </div>
+          </div>
+          <div *ngIf="me.work===undefined || me.work===''">    
+            <div>Jelenlegi munka/Iskola
+            </div>
+              <button mat-raised-button class="checkbutton"  color="primary" (click)="isUpdate()" type="submit">
+                <mat-icon>check</mat-icon>
+              </button>
+                <mat-form-field *ngIf="isup" class="send">
+                  <form [formGroup]="workForm"(ngSubmit)="updateUser()">
+                  <input matInput type="text" formControlName="work"/>
+                      <span class="button">
+                          <button mat-raised-button color="primary" type="submit">
+                              <mat-icon>send</mat-icon>
+                          </button>
+                      </span>
+                  </form>
+              </mat-form-field>
+           </div>
+      <div class="div_button">
+        <div *ngIf="me.birthplace"> Születési hely: {{me.birthplace}}
+          <button mat-raised-button class="checkbutton" color="primary" (click)="isUpdatebp()" type="submit">
+            <mat-icon>create</mat-icon>
+          </button>
+          <mat-form-field *ngIf="isbp" class="send">
+              <form [formGroup]="birthplaceForm"(ngSubmit)="updateUser()">
+              <input matInput type="text" formControlName="birthplace"/>
+                  <span class="button">
+                      <button mat-raised-button color="primary" type="submit">
+                          <mat-icon>check</mat-icon>
+                      </button>
+                  </span>
+              </form>
+          </mat-form-field>
+      </div>
+    </div>
+    <div *ngIf="me.birthplace===undefined || me.birthplace===''">    
+        <div>Születési hely:
+        </div>
+          <button mat-raised-button class="checkbutton"  color="primary" (click)="isUpdatebp()" type="submit">
+            <mat-icon>create</mat-icon>
+          </button>
+            <mat-form-field *ngIf="isbp" class="send">
+              <form [formGroup]="birthplaceForm"(ngSubmit)="updateUser()">
+              <input matInput type="text" formControlName="birthplace"/>
+                  <span class="button">
+                      <button mat-raised-button color="primary" type="submit">
+                          <mat-icon>check</mat-icon>
+                      </button>
+                  </span>
+              </form>
+          </mat-form-field>
+      </div>
+      <div *ngIf="me.gender==='male'">Nem: Férfi</div>
+      <div *ngIf="me.gender==='female'">Nem: Nő</div>
+      <div *ngIf="me.gender==='nonbinary'">Nem: Nem bináris</div>
+</div>
+-->

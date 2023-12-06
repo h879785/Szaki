@@ -1,4 +1,4 @@
-<div class="main">
+<!-- <div class="main">
     <mat-form-field class="search-bar">
         <input matInput type="text" placeholder="Search..." />
         <button class="button" mat-raised-button color="primary" placeholder="Search..." type="submit">
@@ -24,4 +24,27 @@
             </mat-card>
         </div>
 </div>
-  </div>
+  </div> -->
+  <div class="content">
+    <mat-card *ngIf="me">
+            <mat-card-header>
+                <img mat-card-avatar class="header-image" [src]="myprofilePic">
+                <mat-card-title> {{me.name?.firstname}} {{me.name?.lastname}}</mat-card-title>
+            </mat-card-header>
+    </mat-card>
+    <div *ngIf="friendsInput">
+    <mat-card class="search-card">
+        <mat-card-header>
+            Kit ismerhetek?
+        </mat-card-header>
+        <mat-form-field class="search-bar">
+          <input matInput type="text" [(ngModel)]="searchtext" placeholder="Keresés a felhasználók között..." >
+      </mat-form-field>
+      </mat-card>
+      <div *ngFor="let friend of friendsInput | searchFilter: searchtext">
+        <app-friendcard [me]="me" [friend]="friend"></app-friendcard>
+    </div>
+</div>
+</div>
+
+  
