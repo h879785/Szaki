@@ -35,6 +35,12 @@ export class MessageService {
     return this.afs.collection<Message>(this.collectionName, ref => ref.where('from', '==', myid).orderBy('date', 'asc')).valueChanges();
   }
 
+  getUnknownMessage(myid: string, userid: string){
+     return this.afs.collection<Message>(this.collectionName, ref =>
+      ref.where('from', '==', userid).where('to', '==', myid)
+    ).valueChanges();
+  }
+  
   getFriendChat(myid: string, friendid: string): Observable<Message[]> {
     const fromMyIdQuery = this.afs.collection<Message>(this.collectionName, ref =>
       ref.where('from', '==', myid).where('to', '==', friendid)

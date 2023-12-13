@@ -16,20 +16,6 @@ const routes: Routes = [
   ]
   },
 
-
-    
-    // children:[{
-    // path: 'groups',
-    // loadChildren: () => import('./pages/groups/groups.module').then(m => m.GroupsModule),
-    //   // canActivate:[AuthGuard],
-    // },
-    // {
-    //   path: 'main',
-    // loadChildren: () => import('./pages/main/main.module').then(m => m.MainModule),
-    //   // canActivate:[AuthGuard],
-    // },
-    // ]
-
 ]
 
 @NgModule({

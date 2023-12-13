@@ -5,4 +5,5 @@ export interface Comment{
     comment? : string;
     date?: number;
     like?: string[];
+    groupid?: string;
 }

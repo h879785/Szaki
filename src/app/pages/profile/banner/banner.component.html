@@ -8,6 +8,8 @@
         <mat-card-title>{{ selectedUser.name?.lastname }}</mat-card-title>
         <mat-card-subtitle>Ismerősök {{ selectedUser.friends?.length }}</mat-card-subtitle>
       </mat-card-title-group>
+      <button mat-raised-button *ngIf="selectedUser.id && !isFriend()" (click)="addFriend()">Ismerős hozzáadása</button>
+      <button mat-raised-button *ngIf="selectedUser.id && isFriend()">Ismerős törlése</button>
     </mat-card-header>
   </mat-card>
 </ng-container>

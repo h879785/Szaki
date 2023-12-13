@@ -1,0 +1,23 @@
+<div class="container" *ngIf="selectedUser">
+    <app-banner 
+    [me]="me"
+    [selectedUser]="selectedUser"
+    [profilePic]="profilePic"
+    ></app-banner>
+    
+    <div class="container" fxLayout="row" fxLayout.lt-md="column">
+      <div class="friendlist">
+        <app-data     
+        [me]="me"
+        [selectedUser]="selectedUser"></app-data> 
+       </div>
+    
+      <div class="div-card"  *ngIf="selectedUser; else noData">
+        <app-post-list *ngFor="let post of selectedUserPosts" [post]="post" [selectedUser]="selectedUser" [profilePic]="profilePic"></app-post-list>
+      </div>
+    </div>
+    
+    <ng-template #noData>
+      <div>Jelenleg nincsenek bejegyzéseid!</div>
+    </ng-template>
+    </div>

@@ -1,0 +1,20 @@
+<div class="container" *ngIf="me">
+    <app-banner 
+    [me]="me"
+    [profilePic]="myprofilePic"
+    ></app-banner>
+    
+    <div class="container" fxLayout="row" fxLayout.lt-md="column">
+      <div class="friendlist">
+        <app-data [me]="me"></app-data> 
+       </div>
+    
+      <div class="div-card"  *ngIf="myPosts;else noData">
+        <app-post-list *ngFor="let post of myPosts" [post]="post"[me]="me" [profilePic]="myprofilePic"></app-post-list>
+    </div>
+    </div>
+    
+    <ng-template #noData>
+      <div>Jelenleg nincsenek bejegyzéseid!</div>
+    </ng-template>
+    </div>

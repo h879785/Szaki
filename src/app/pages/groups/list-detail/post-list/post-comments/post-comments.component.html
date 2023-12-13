@@ -1,0 +1,8 @@
+<mat-card *ngIf="commenter && comments">
+    <mat-card-header>
+        <img mat-card-avatar class="example-header-image" [src]="profilePic">
+        <mat-card-title>{{commenter.name?.firstname}}</mat-card-title>
+        <mat-card-content>{{comments.comment}}</mat-card-content>
+    </mat-card-header>
+</mat-card>
+

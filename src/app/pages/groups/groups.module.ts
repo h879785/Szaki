@@ -21,6 +21,11 @@ import { ListComponent } from './list/list.component';
 import { ListItemComponent } from './list/list-item/list-item.component';
 import { ListDetailComponent } from './list-detail/list-detail.component';
 import { PostListComponent } from './list-detail/post-list/post-list.component';
+import { GroupPostCreatorComponent } from './group-post-creator/group-post-creator.component';
+import { ManagingMembersComponent } from './managing-members/managing-members.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { MatMenuModule } from '@angular/material/menu';
+import { PostCommentsComponent } from './list-detail/post-list/post-comments/post-comments.component';
 
 
 
@@ -32,6 +37,9 @@ import { PostListComponent } from './list-detail/post-list/post-list.component';
     ListItemComponent,
     ListDetailComponent,
     PostListComponent,
+    GroupPostCreatorComponent,
+    ManagingMembersComponent,
+    PostCommentsComponent,
 
   ],
   imports: [
@@ -49,7 +57,9 @@ import { PostListComponent } from './list-detail/post-list/post-list.component';
     MatSelectModule,
     MatChipsModule,
     MatSidenavModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    SharedModule,
+    MatMenuModule
   ]
 })
 export class GroupsModule { }

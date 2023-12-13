@@ -6,29 +6,29 @@ const routes: Routes = [
   {
     path: 'groups',
   loadChildren: () => import('./pages/groups/groups.module').then(m => m.GroupsModule),
-    // canActivate:[AuthGuard],
+     canActivate:[AuthGuard],
   },
   {
     path: 'main',
   loadChildren: () => import('./pages/main/main.module').then(m => m.MainModule),
-    // canActivate:[AuthGuard],
+     canActivate:[AuthGuard],
   },
   {
     path: 'profile',
   loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule),
-    // canActivate:[AuthGuard],
+     canActivate:[AuthGuard],
   },
   {
     path: 'chat',
   loadChildren: () => import('./pages/chat/chat.module').then(m => m.ChatModule),
-    // canActivate:[AuthGuard],
+     canActivate:[AuthGuard],
   },
 
 
 {
   path: 'error',
   loadChildren: () => import('./pages/error/error.module').then(m => m.ErrorModule),
-  // canActivate:[AuthGuard],
+   canActivate:[AuthGuard],
 
 },
 {
@@ -41,7 +41,6 @@ const routes: Routes = [
 },
 {
   path:'**',
-  // redirectTo: '/login',
   redirectTo: '/login'
 }
 ];

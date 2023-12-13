@@ -1,0 +1,21 @@
+<mat-card *ngIf="data.me">
+    <mat-card-header>
+        <img mat-card-avatar class="header-image" [src]="data.profilePic">
+        <mat-card-title> {{data.me.name?.firstname}} {{data.me.name?.lastname}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form  class="form" [formGroup]="GroupPostForm">
+        <mat-form-field class="input">
+            <mat-label for="post">Oszd meg mi jár a fejedben! </mat-label>
+            <input matInput type="text" formControlName="post">
+        </mat-form-field> 
+    </form>
+    <app-image-picker
+    [showPreview]="form.get('image')?.value"
+    (imagePick)="onImagePicked($event)"
+    ></app-image-picker>
+    </mat-card-content>
+    <button mat-raised-button color="primary" (click)="addPost()" [disabled]="GroupPostForm.invalid">Közzététel</button>
+</mat-card>
+
+

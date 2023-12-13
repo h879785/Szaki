@@ -1,11 +1,11 @@
-import { Component, OnInit, AfterViewInit, EventEmitter, Output, Input } from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss']
 })
-export class MenuComponent implements OnInit, AfterViewInit {
+export class MenuComponent{
 
   @Input() currentPage: string = '';
   @Input() loggedInUser?: firebase.default.User | null;
@@ -14,15 +14,6 @@ export class MenuComponent implements OnInit, AfterViewInit {
   @Output() onLogout: EventEmitter<boolean> = new EventEmitter();
 
   constructor() {
-    console.log('constructor called.');
-  }
-
-  ngOnInit(): void {
-    console.log('ngOnInit called.');
-  }
-
-  ngAfterViewInit(): void {
-    console.log('ngAfterViewInit called.');
   }
 
   menuSwitch() {

@@ -1,10 +1,10 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { Image } from '.././models/Image';
 import { AngularFireStorage } from '@angular/fire/compat/storage'
 import { GroupPost } from '../models/GroupPost';
+import { Comment } from '../models/Comment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,6 @@ export class GrouppostService {
   collectionName = "GroupPost"
 
   constructor(
-    private http: HttpClient,
     private afs: AngularFirestore,
     private storage: AngularFireStorage,
   ) { }
@@ -60,7 +59,7 @@ export class GrouppostService {
     const data: Partial<GroupPost> = { like: likes };
     this.afs.collection<GroupPost>(this.collectionName).doc(postID).update(data);
   }
-  addComment(postID: string,comments: Array<string>){
+  addComment(postID: string,comments: Array<Comment>){
     const data: Partial<GroupPost> = { comments: comments };
     this.afs.collection<GroupPost>(this.collectionName).doc(postID).update(data);
   }

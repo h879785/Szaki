@@ -16,6 +16,7 @@ export class CommentService {
   ) { }
 
   createComment(comment: Comment){
+      comment.id = this.afs.createId();
       return this.afs.collection<Comment>(this.collectionName).doc(comment.id).set(comment);
   }
 
@@ -26,6 +27,7 @@ export class CommentService {
   getAllCommentWID(postId: string){
     return this.afs.collection<Comment>(this.collectionName, ref => ref.where('postid', '==', postId).orderBy('date', 'desc')).valueChanges();
   }
+
 
   update(comment: Comment) {
     return this.afs.collection<Comment>(this.collectionName).doc(comment.id).set(comment);

@@ -1,6 +1,6 @@
 <div *ngFor="let groupEl of groups">
 <app-list-item
-    *ngIf="groupEl.creator === me?.id"
+    *ngIf="groupEl.creator === me?.id || inMembers(groupEl) "
       [groups]="groupEl"
 ></app-list-item>
 </div>
@@ -8,7 +8,7 @@
  <p>Egyéb csoportok</p>
 <div *ngFor="let groupEl of groups">
     <app-list-item
-        *ngIf="groupEl.creator !== me?.id"
+        *ngIf="groupEl.creator !== me?.id || !inMembers(groupEl)"
           [groups]="groupEl"
     ></app-list-item>
     </div>

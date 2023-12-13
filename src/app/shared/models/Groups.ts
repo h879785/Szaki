@@ -5,7 +5,7 @@ export interface Groups{
     members?: Array<User>;
     creator?: string;
     name: string;
-    //posts?: string[];
+    moderators?: Array<User>;
     security: string;
     createdate?: number;
 }

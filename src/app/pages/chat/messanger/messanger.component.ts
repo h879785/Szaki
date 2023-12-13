@@ -1,6 +1,6 @@
 import { createMayBeForwardRefExpression } from '@angular/compiler';
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Message } from 'src/app/shared/models/Message';
 import { User } from 'src/app/shared/models/User';
@@ -74,8 +74,26 @@ export class MessangerComponent implements OnInit{
 
   newMessage(model: Message){
     let formGroup = this.fb.group(model);
-    formGroup.get('message')?.addValidators([Validators.required, Validators.minLength(1)]);
+    formGroup.get('message')?.addValidators([Validators.required,this.postStringValidator(), Validators.minLength(1)]);
     return formGroup
+  }
+
+  postStringValidator() {
+    return (control: FormControl): { [key: string]: any } | null => {
+      const postText = control.value as string;
+
+      const httpLinkRegex = /(http):\/\/\S+/;
+      if (httpLinkRegex.test(postText)) {
+        return { containsHttpLink: true };
+      }
+
+      const forbiddenHtmlTags = /<\/?(script|style|iframe|a|img|div|h\d)+>/gi;
+      if (forbiddenHtmlTags.test(postText)) {
+        return { containsForbiddenTags: true };
+      }
+
+      return null;
+    };
   }
 
   addMessage(){

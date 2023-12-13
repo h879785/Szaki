@@ -10,6 +10,6 @@ export interface User {
     birthplace?: string;
     friends?: string[];
     work?: string;
-    hobbies?: string;
+    hobbies?: string[];
     image?: string;
 }

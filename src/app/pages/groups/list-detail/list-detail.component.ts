@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Groups } from 'src/app/shared/models/Groups';
 import { GroupPost } from 'src/app/shared/models/GroupPost';
@@ -6,6 +6,11 @@ import { GroupService } from 'src/app/shared/services/group.service';
 import { GrouppostService } from 'src/app/shared/services/grouppost.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { User } from 'src/app/shared/models/User';
+import { UserService } from 'src/app/shared/services/user.service';
+import { ImageService } from 'src/app/shared/services/image.service';
+import { GroupPostCreatorComponent } from '../group-post-creator/group-post-creator.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ManagingMembersComponent } from '../managing-members/managing-members.component';
 
 @Component({
   selector: 'app-list-detail',
@@ -16,10 +21,10 @@ export class ListDetailComponent implements OnInit{
   group?: Groups;
   groupId?: string;
   message: string = "";
-  groupPost: GroupPost[] = [];
   members: User [] = [];
   me?: User;
-  imagePath = "https://upload.wikimedia.org/wikipedia/commons/a/ab/Wallpaper_group-p4m-5.jpg";
+  profilePic?: any;
+  allPost: GroupPost[] = [];
 
   grouppostForm = this.newGroupPost({
     id: "",
@@ -35,6 +40,9 @@ export class ListDetailComponent implements OnInit{
   constructor(
     private groupService: GroupService,
     private groupPostService: GrouppostService,
+    private imageService: ImageService,
+    private userService: UserService,
+    private dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
@@ -53,12 +61,24 @@ export class ListDetailComponent implements OnInit{
             this.message = "HIBA! A keresett csoport nem található!"        
           }
         });
-        this.groupPostService.getById(this.groupId).subscribe((groupPost: GroupPost | undefined) => {
-          if (groupPost) {
-            console.log(groupPost)
+        this.groupPostService.getAllPost().subscribe(allpost=> {
+          if (allpost) {
+            this.allPost = allpost.filter(post => post.groupid === this.groupId);           
+            console.log(this.allPost)
           }else{
             this.message = "Nem található post!"        
           }
+        });
+      }
+    });
+
+    const me = JSON.parse(localStorage.getItem('user') as string) as firebase.default.User;
+
+    this.userService.getById(me.uid)?.subscribe((user) => {
+      this.me = user;
+      if (this.me?.image) {
+        this.imageService.loadImage(this.me?.image).subscribe((profpic) => {
+          this.profilePic = profpic;
         });
       }
     });
@@ -92,5 +112,43 @@ export class ListDetailComponent implements OnInit{
         });
       }
     }
+  }
+  openGroupPostCreator(){
+      this.dialog.open(GroupPostCreatorComponent,{
+        width:'50%',
+        height: '70%',
+        data: {
+          profilePic: this.profilePic,
+          me: this.me,
+          group: this.group,
+        }
+       })
+  }
+
+  inMembers(){
+    if (this.group && this.me) {
+      return !!this.group.members?.some(member => member.id === this.me?.id);
+    }
+    return false;
+  }
+
+  isModerator(){
+    if (this.group && this.me) {
+      return !!this.group.moderators?.some(member => member.id === this.me?.id);
+    }
+    return false;
+  }
+
+  managingMembers(){
+      this.dialog.open(ManagingMembersComponent,{
+        width:'50%',
+        height: '70%',
+        data: {
+          profilePic: this.profilePic,
+          me: this.me,
+          group: this.group,
+        }
+       })
+  
   }
 }

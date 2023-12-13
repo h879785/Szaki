@@ -3,7 +3,7 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild }
 @Component({
   selector: 'app-image-picker',
   templateUrl: './image-picker.component.html',
-  styleUrls: ['./image-picker.component.scss']
+  styleUrls: ['./image-picker.component.scss'],
 })
 export class ImagePickerComponent implements OnInit{
   @ViewChild('filePicker', { static: false }) filePickerRef?: ElementRef<HTMLInputElement>;

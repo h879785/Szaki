@@ -1,9 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Image } from '.././models/Image';
-import { AngularFireStorage } from '@angular/fire/compat/storage'
 import { Post } from '../models/Post';
 
 
@@ -16,15 +13,8 @@ export class PostService {
   collectionName= "Posts";
 
   constructor(
-    private http: HttpClient,
     private afs: AngularFirestore,
-    private storage: AngularFireStorage,
   ) { }
-
-  // createPost(post: Post){
-  //   post.id = this.afs.createId();
-  //     return this.afs.collection<Post>(this.collectionName).doc(post.id).set(post);
-  // }
 
   createPost(post: Post) {
     post.id = this.afs.createId();
@@ -40,14 +30,9 @@ export class PostService {
     return this.afs.collection<Post>(this.collectionName, ref => ref.orderBy('date', 'desc')).valueChanges();
   }
 
-  // update(post: Post) {
-  //   return this.afs.collection<Post>(this.collectionName).doc(post.id).set(post);
-  // }
-
   update(post: Post) {
     return this.afs.collection<Post>(this.collectionName).doc(post.id).set(post)
       .then(() => {
-        // Frissítjük a BehaviorSubject értékét a frissített adattal
         const currentPosts = this._postsSubject.getValue();
         const index = currentPosts.findIndex(p => p.id === post.id);
         if (index !== -1) {
@@ -57,10 +42,6 @@ export class PostService {
       });
   }
   
-
-  // delete(id: string) {
-  //   return this.afs.collection<Post>(this.collectionName).doc(id).delete();
-  // }
 
   delete(id: string) {
     return this.afs.collection<Post>(this.collectionName).doc(id).delete()

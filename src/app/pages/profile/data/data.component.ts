@@ -1,9 +1,9 @@
-import { Dialog } from '@angular/cdk/dialog';
 import { Component, Input, OnInit } from '@angular/core';
 import { Post } from 'src/app/shared/models/Post';
 import { User } from 'src/app/shared/models/User';
 import { PostService } from 'src/app/shared/services/post.service';
 import { UpdateProfileDataComponent } from '../update-profile-data/update-profile-data.component';
+import { MatDialog } from '@angular/material/dialog'; 
 
 @Component({
   selector: 'app-data',
@@ -17,8 +17,8 @@ export class DataComponent implements OnInit{
   selectedUserposts: Array<Post>=[];
   constructor(
     private postService: PostService,
-    private dialog: Dialog,
-  ){}
+    private dialog: MatDialog
+    ){}
 
   ngOnInit(){
     if(this.me?.id){

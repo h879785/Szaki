@@ -8,9 +8,6 @@ import { Observable, Subscriber } from 'rxjs';
 export class LoadingService {
 
   constructor() { }
-  // Callback
-  //  Promise
-  //  Observable
 
   loadingWithPromise(email:string|null,password: string |null): Promise<boolean>{
     return new Promise((resolve,reject)=>{
@@ -18,7 +15,6 @@ export class LoadingService {
       if (email === 'test@gmail.com' && password === 'testpw') {
         resolve (true)
       } else {
-        console.error('Incorrect email or password!');
         reject(false)
       }
     }, 3000);

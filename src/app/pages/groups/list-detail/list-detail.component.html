@@ -1,47 +1,35 @@
-<ng-container *ngIf="group">
+<ng-container *ngIf="group && me">
   <div>
     <mat-card>
       <mat-card-title>{{group.name}}</mat-card-title>
-      <mat-card-content>
-        <p>{{group.createdate}}</p>
-        <p>{{group.id}}</p>
-        <mat-chip-listbox *ngFor="let member of group.members">
-          <mat-chip>
-            {{member.name?.firstname}} {{member.name?.lastname}}
-          </mat-chip>
-        </mat-chip-listbox>
-
-      </mat-card-content>
-      
+      <mat-card-title *ngIf="group.creator === me.id || isModerator()"><button mat-raised-button (click)="managingMembers()">Tagok kezelése</button></mat-card-title>
     </mat-card>
 </div>
 <hr>
+            <div class="div-card" *ngIf="me && (inMembers() || group.security ==='public')">
+              <mat-card fxLayout fxLayoutGap="20px">
+                  <span>
+          
+                      <mat-card-content class="post_content">
+                          <mat-card-header>
+                          <img mat-card-avatar class="header-image" [src]="profilePic">
+                              <button class="full_button" mat-raised-button (click)="openGroupPostCreator()">
+                              Oszd meg mi jár a fejedben!
+                              </button>
+                          </mat-card-header>
+                      </mat-card-content>
+                  </span>
+              </mat-card>
+          </div>          
+        <div class="error-message" *ngIf="message !=='' && me && (inMembers() || group.security ==='public')">
+          {{message}}
+        </div> 
+        <div *ngIf="me && !inMembers() && group.security !=='public'">
+          Még nem vagy a csoport tagjai között
+        </div>
+        <button *ngIf="me && !inMembers() && group.security !=='public'" mat-button>Kérelem elküldése</button>
 
-              <mat-card class="post-form" background-color="primary" fxLayout fxLayoutGap="20px">
-                <mat-card-header class="center-image">
-                  <img class="image" mat-card-lg-image [src]="imagePath" >
-                </mat-card-header>
-                <mat-card-content>
-                  <form [formGroup]="grouppostForm">
-                    <mat-form-field>
-                        <mat-label for="post">Mi jár a fejedben! </mat-label>
-                        <textarea matInput rows="1" cols="30" formControlName="post" required></textarea>
-                    </mat-form-field>
-                </form>
-                </mat-card-content>
-                <mat-card-actions>
-                  <button 
-                  mat-raised-button 
-                  color="secondary"
-                   type="submit"
-                   [disabled]="grouppostForm.get('post')?.value?.length === 0"
-                   >Közzététel</button>
-                </mat-card-actions>
-        </mat-card>
-               <div class="post-list">
-                <app-post-list *ngFor="let post of groupPost"></app-post-list>
-              </div>
-            <div class="error-message" *ngIf="message !=='' " >
-              {{message}}
-            </div> 
 </ng-container>
+<div class="post-list" *ngIf="me && group && (inMembers() || group.security ==='public')">
+  <app-post-list *ngFor="let post of allPost" [post]="post" [me]="me" [members]="group.members" [group]="group"></app-post-list>
+</div>

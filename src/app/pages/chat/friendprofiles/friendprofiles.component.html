@@ -1,36 +1,10 @@
-<!-- <div class="main">
-    <mat-form-field class="search-bar">
-        <input matInput type="text" placeholder="Search..." />
-        <button class="button" mat-raised-button color="primary" placeholder="Search..." type="submit">
-            <mat-icon>search</mat-icon>
-        </button>
-    </mat-form-field>
-<div *ngIf="friendsInput && friendsInput.length > 3" class="scrollable_list" >
-        <div class="friends_card" *ngFor="let friend of friendsInput; let i = index;">
-            <mat-card fxLayout fxLayoutGap="20px">
-                <span fxFlex="1 1 50%">
-                    <mat-card-header *ngIf="friend">
-                        <mat-card-title>{{friend.name?.firstname}} {{friend.name?.lastname}}</mat-card-title>
-                    </mat-card-header>
-                    <form (ngSubmit)="friendUser(friend)">
-                    <mat-card-content>
-                        <button mat-raised-button color="primary" type="submit">
-                            <mat-icon>message</mat-icon>
-                        </button>
-                    </mat-card-content>
-                </form>
-                </span>
-        
-            </mat-card>
-        </div>
-</div>
-  </div> -->
   <div class="content">
     <mat-card *ngIf="me">
             <mat-card-header>
                 <img mat-card-avatar class="header-image" [src]="myprofilePic">
                 <mat-card-title> {{me.name?.firstname}} {{me.name?.lastname}}</mat-card-title>
             </mat-card-header>
+            <button mat-raised-button *ngIf="unknownChatCounter>0" (click)="IsSwap()">Kéretlen üzenetek ({{unknownChatCounter}})</button>
     </mat-card>
     <div *ngIf="friendsInput">
     <mat-card class="search-card">
@@ -41,9 +15,16 @@
           <input matInput type="text" [(ngModel)]="searchtext" placeholder="Keresés a felhasználók között..." >
       </mat-form-field>
       </mat-card>
+      <div *ngIf="!isSwap">
       <div *ngFor="let friend of friendsInput | searchFilter: searchtext">
         <app-friendcard [me]="me" [friend]="friend"></app-friendcard>
     </div>
+    </div>
+    <div *ngIf="isSwap && unknownUsers">
+        <div *ngFor="let friend of unknownUsers | searchFilter: searchtext">
+          <app-friendcard [me]="me" [friend]="friend"></app-friendcard>
+      </div>
+      </div>
 </div>
 </div>
 

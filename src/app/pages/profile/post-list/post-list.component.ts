@@ -6,7 +6,6 @@ import { Comment } from 'src/app/shared/models/Comment';
 import { CommentService } from 'src/app/shared/services/comments.service';
 import { ImageService } from 'src/app/shared/services/image.service';
 import { PostService } from 'src/app/shared/services/post.service';
-import { UserService } from 'src/app/shared/services/user.service';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
@@ -31,7 +30,6 @@ export class PostListComponent {
   likeC?: Array<string>=[];
 
   constructor(
-    private userService: UserService,
     private postService: PostService,
     private imageService: ImageService,
     private commentService: CommentService,
@@ -44,32 +42,7 @@ export class PostListComponent {
         this.postImage = image;
       })
     }
-    // this.commentService.getAllComment().subscribe(comments =>{
-    //   this.commentList = comments
-    // })
-
-    //   if(this.commentList?.length)
-    //   for(let i=0;i<this.commentList?.length;i++){
-    //     this.commentCreators(this.commentList[i])      
-    //   }
   }
-
-  // commentCreators(comment: Comment){
-  //   if(comment.from)
-  //   this.userService.getById(comment.from)?.subscribe(user =>{
-  //     if(user && this.commentCreator?.indexOf(user)===-1)
-  //     this.commentCreator?.push(user);
-  //   })
-  // }
-
-  // commentCont(postid: string){
-  //   if(this.addcomment){
-  //   this.addcomment = false;
-  //   }else{
-  //     this.addcomment = true;
-  //   }
-  //   this.isucpid=postid
-  // }
 
   getProfilePic(creator: User) {
     if(creator.image)
@@ -104,16 +77,6 @@ export class PostListComponent {
       this.isShowComments ? this.isShowComments = false : this.isShowComments = true;
     }
   
-    // findCommentUser(comment: Comment){
-    //   if(this.alluser && comment!==undefined)
-    //   for(let user of this.alluser){
-    //     if(user.id === comment.from){
-    //       console.log(user);
-    //       return user;
-    //     }
-    //   }
-    //   return undefined;
-    // }
   
     commentForm = new FormGroup({
       comment :   new FormControl(),

@@ -1,0 +1,45 @@
+<h2>Tagok kezelése</h2>
+<hr>
+<h3>Tulajdonos</h3>
+<mat-chip-listbox>
+    <mat-chip color="accent" *ngIf="owner">
+      {{owner.name?.firstname}} {{owner.name?.lastname}}
+      <button matChipRemove>
+        <mat-icon>whatshot
+        </mat-icon>
+      </button>
+    </mat-chip>
+  </mat-chip-listbox>
+<h3>Moderátorok</h3>
+<mat-chip-listbox *ngIf="data.group.moderators">
+    <mat-chip color="accent" *ngFor="let moderator of data.group.moderators ">
+      {{moderator.name.firstname}} {{moderator.name.lastname}}
+      <button matChipRemove *ngIf="data.group.creator === data.me.id" (click)="removeModerator(moderator)">
+        <mat-icon>remove_circle
+        </mat-icon>
+      </button>
+    </mat-chip>
+  </mat-chip-listbox>
+<h3>Tagok</h3>
+<mat-chip-listbox>
+    <mat-chip color="accent" *ngFor="let member of data.group.members ">
+      {{member.name.firstname}} {{member.name.lastname}}
+      <button matChipRemove *ngIf="data.group.creator === data.me.id && member.id !== data.me.id" (click)="addModerator(member)">
+        <mat-icon>build
+        </mat-icon>
+      </button>
+      <button matChipRemove *ngIf="data.group.creator === data.me.id || isModerator()" (click)="removeMember(member)">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-chip>
+  </mat-chip-listbox>
+<h3>Tagok ajánlása</h3>
+  <mat-chip-listbox>
+    <mat-chip color="accent" *ngFor="let user of getNotMemberUsers() ">
+      {{user.name?.firstname}} {{user.name?.lastname}}
+      <button matChipRemove (click)="addNewMember(user)">
+        <mat-icon *ngIf="data.group.creator === data.me.id || isModerator()">person_add
+        </mat-icon>
+      </button>
+    </mat-chip>
+  </mat-chip-listbox>

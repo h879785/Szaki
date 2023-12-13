@@ -1,15 +1,15 @@
-<mat-card class="example-card" *ngIf="user && user.id"
-style="cursor: pointer;"
-(click)="redirectToProfile(user.id)">
+<mat-card class="example-card" *ngIf="user && user.id">
     <mat-card-header>
-      <mat-card-title-group>
+      <mat-card-title-group style="cursor: pointer;"
+      [routerLink]="['/profile', user.id]"
+      >
         <img mat-card-sm-image [src]="profilePic">
         <mat-card-title>{{user.name?.firstname}}</mat-card-title>
         <mat-card-title>{{user.name?.lastname}}</mat-card-title>
-        <mat-card-actions>
-          <button (click)="addFriend(user.id)" mat-button><mat-icon>add</mat-icon></button>
-        </mat-card-actions>
       </mat-card-title-group>
+      <mat-card-actions>
+        <button (click)="addFriend(user.id)" mat-button><mat-icon>add</mat-icon></button>
+      </mat-card-actions>
     </mat-card-header>
     <mat-card-content>
     </mat-card-content>

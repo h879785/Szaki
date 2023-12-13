@@ -32,7 +32,7 @@ export class FriendlistItemComponent implements OnInit {
   }
 
   redirectToProfile(userid: string){
-    this.router.navigate(['/profile','/',userid]);
+     this.router.navigate(['profile',userid]);
   }
 
   addFriend(friendId: string){

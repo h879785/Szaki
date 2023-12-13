@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Groups } from 'src/app/shared/models/Groups';
 import { User } from 'src/app/shared/models/User';
@@ -20,8 +19,6 @@ export class ListComponent implements OnInit,OnDestroy{
   constructor(
     private groupService: GroupService,
     private userService: UserService,
-    private router: Router,
-    private route: ActivatedRoute
     ){ }
 
   ngOnInit(): void {
@@ -38,5 +35,10 @@ export class ListComponent implements OnInit,OnDestroy{
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
-
+  inMembers(group: Groups){
+    if (this.me) {
+      return !!group.members?.some(member => member.id === this.me?.id);
+    }
+    return false;
+  }
 }

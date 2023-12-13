@@ -8,16 +8,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class BirthpipePipe implements PipeTransform {
 
 
-  /*transform(value: firebase.firestore.Timestamp): string {
-
-    const datePipe = new DatePipe('en-US');
-    const date = value.toDate();
-    const formattedDate = datePipe.transform(date, 'yyyy/MM/dd');
-
-    return formattedDate || '';
-  }*/
-
-
   transform(value: Date, ...args: unknown[]): string {
     const datePipe = new DatePipe('en-US');
     const formattedDate = datePipe.transform(value, 'MMMM d, y');

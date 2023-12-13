@@ -14,38 +14,6 @@
             </mat-select>
           </mat-form-field>
       
-          <form>
-            <mat-form-field class="example-chip-list">
-              <mat-label>Tagok meghívása</mat-label>              <mat-chip-grid #chipGrid aria-label="Új tagok meghívása">
-                <mat-chip-row *ngFor="let member of members" (removed)="remove(member)">
-                  {{member.id}}
-                  <button matChipRemove [attr.aria-label]="'remove ' + member">
-                    <mat-icon>cancel</mat-icon>
-                  </button>
-                </mat-chip-row>
-              </mat-chip-grid>
-              <input placeholder="Új tag felvétele..." #memberInput [formControl]="memberCtrl"
-                [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
-                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                (matChipInputTokenEnd)="add($event)"/>
-              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-                <mat-option *ngFor="let friend of filteredFriends | async" [value]="friend">
-                  {{friend}}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-          </form>
-          <!--
-            <mat-chip-grid *ngIf="myfriends?.length">
-              <mat-chip-row *ngFor="let friend of myfriends">
-                <ng-container *ngIf="friend && friend.id && friend.name && friend.name.firstname && friend.name.lastname">
-                  {{ friend.name.firstname }} {{ friend.name.lastname }}
-                  <button matChipRemove (click)="addFriendToGroup(friend.id)">
-                    <mat-icon>add</mat-icon>
-                  </button>
-                </ng-container>
-              </mat-chip-row>
-            </mat-chip-grid>-->
       </mat-card-content>
       <mat-card-actions align="end">
         <button mat-raised-button color="primary" type="submit" mat-dialog-close>Létrehoz</button>

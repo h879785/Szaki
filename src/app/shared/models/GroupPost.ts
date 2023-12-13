@@ -1,3 +1,5 @@
+import { Comment } from 'src/app/shared/models/Comment';
+
 export interface GroupPost{
     id: string;
     groupid: string;
@@ -5,5 +7,6 @@ export interface GroupPost{
     post: string;
     date?: number;
     like?: string[];
-    comments?: string[];
+    comments?: Comment[];
+    image?: string;
 }

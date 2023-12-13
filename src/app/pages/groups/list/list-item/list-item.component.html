@@ -1,6 +1,5 @@
 <mat-card *ngIf="groups " fxLayout="column" fxLayoutGap="20px">
     <ng-container *ngIf="groups.creator">
-          <!-- <button mat-button color="warn" style="cursor: pointer;"> -->
             <mat-card 
             style="cursor: pointer;"
             [routerLink]="[groups.id]"
@@ -8,8 +7,9 @@
             >
               <mat-card-title-group>
                 <mat-card-title>{{groups.name}}</mat-card-title>
+                <mat-card-title *ngIf="groups.security === 'public'"><mat-icon>public</mat-icon></mat-card-title>
+                <mat-card-title *ngIf="groups.security === 'private'"><mat-icon>vpn_lock</mat-icon></mat-card-title>
               </mat-card-title-group>
             </mat-card>
-          <!-- </button> -->
     </ng-container>
 </mat-card>
